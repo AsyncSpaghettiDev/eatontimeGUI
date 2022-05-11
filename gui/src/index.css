@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Source+Sans+Pro&display=swap');
+
+:root{
+  --ff-main: 'Montserrat', sans-serif;
+  --ff-alter: 'Source Sans Pro', sans-serif;
+
+  --fs-heading: 30px;
+  --fs-title: 25px;
+  --fs-general: 18px;
+  --fs-special: 17px;
+  --fs-tiny: 12px;
+  
+  --fw-bold: 800;
+
+  --bg-primary-800: #854838;
+
+  --clr-primary-800: #854838;
+  --clr-primary-200: #eaeaea;
+}
+
+body {
+  margin: 0;
+}
