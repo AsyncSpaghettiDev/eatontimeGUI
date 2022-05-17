@@ -1,5 +1,5 @@
 import logo from '../Images/logo.png';
-import './Transition.css';
+import './styles/Transition.css';
 
 const Transition = () => {
     return (

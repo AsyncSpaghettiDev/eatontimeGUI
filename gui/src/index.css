@@ -13,11 +13,21 @@
   --fw-bold: 800;
 
   --bg-primary-800: #854838;
+  --bg-primary-600: #b17364;
+  --bg-primary-200: #efefef;
 
   --clr-primary-800: #854838;
   --clr-primary-200: #eaeaea;
+
+  --clr-white: #eaeaea;
+  --clr-black: #2a2a2a;
+}
+
+*{
+  box-sizing: border-box;
 }
 
 body {
   margin: 0;
+  background-color: var(--bg-primary-200);
 }

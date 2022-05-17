@@ -1,14 +1,26 @@
+// Styles
 import './styles/Dashboard.css';
 
+// Imports
+import { Outlet, useNavigate } from 'react-router-dom';
+
 const Dashboard = () => {
+    const navigate = useNavigate();
+    const returnHandler = () => {
+        navigate(-1);
+    }
+    const homeHandler = () => {
+        navigate('/');
+    }
     return (
-        <section className="dashboard">
-            <div className="dashboard__header">
-                <label className='goBackArrow' htmlFor="goBack" onClick={() => alert('Hi')}> &#5176; </label>
-                <input type="hidden" id='goBack'/>
-                <h1 className='dashboard-header'>EatOnTime</h1>
-            </div>
-        </section>
+        <main className="dashboard">
+            <nav className="dashboard__header">
+                <span className='dashboard__back' onClick={returnHandler}> &#5176; </span>
+                <h1 className='dashboard-header' onClick={homeHandler} >EatOnTime</h1>
+            </nav>
+            <Outlet />
+            
+        </main>
     )
 }
 

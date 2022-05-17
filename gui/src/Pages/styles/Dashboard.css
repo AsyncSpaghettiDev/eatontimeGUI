@@ -1,21 +1,36 @@
-.dashboard__header{
+/*
+    -------------------    
+    Pseudo nav for page
+    -------------------
+*/
+
+.dashboard__header {
     background-color: var(--bg-primary-800);
     text-align: center;
     padding: 0.5em;
     display: grid;
     align-items: center;
-    grid-template-columns: 2ch 1fr;
+    grid-template-columns: max-content 1fr;
     color: var(--clr-primary-200);
+    cursor: pointer;
 }
 
-.goBackArrow{
-    margin-left: 1em;
+.dashboard__back {
+    display: grid;
+    place-items: center;
+    padding: 0 0.5em;
     width: 1em;
     height: 100%;
     font-weight: 800;
+    grid-row: 1;
+    grid-column: 1 / 2;
+    z-index: 10;
+    cursor: pointer;
 }
 
-.dashboard-header{
+.dashboard-header {
     margin: 0;
     font-family: var(--ff-main);
+    grid-row: 1;
+    grid-column: 1 / 3;
 }
