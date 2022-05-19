@@ -16,7 +16,7 @@ const ConfirmBill = () => {
             <div className='dialog' role="dialog" aria-labelledby="dialogTitle" aria-describedby="dialogDesc">
                 <h2 className='dialog-title' id="dialogTitle"> {`Pedir Cuenta Mesa #${state.tableID}`} </h2>
                 <p className='dialog-desc' id="dialogDesc">¿Desea solicitar la cuenta de la mesa?</p>
-                <div className="dialog-response">
+                <div className="dialog-buttons">
                     <button onClick={handleReturn} className='dialog-btn dialog-confirm'> Sí </button>
                     <button onClick={handleReturn} className='dialog-btn dialog-cancel'> Cancelar </button>
                 </div>

@@ -1,0 +1,9 @@
+.AddPlate{
+    max-width: 800px;
+    margin-block: 1em;
+    margin-inline: auto;
+}
+.order-title{
+    text-align: center;
+    font-family: var(--ff-main);
+}

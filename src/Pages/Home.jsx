@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 const Home = () => {
     return (
         <main className="home">
-            <Transition duration='0s'/>
+            <Transition/>
             <h1>Hello to EatOnTime Menu</h1>
             <Link to='/dashboard'>Dashboard</Link>
         </main>

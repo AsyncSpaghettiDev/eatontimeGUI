@@ -27,11 +27,11 @@
     background-color: var(--current-bg);
 }
 
-.dashboard__resume__table-info{
+.dashboard__resume__table .dashboard__resume__table-info{
     padding: 0.25em;
     box-sizing: border-box;
 }
 
-.dashboard__resume__table-time{
+.dashboard__resume__table .dashboard__resume__table-time{
     text-transform: lowercase;
 }
