@@ -44,19 +44,24 @@ const TableDetail = () => {
     const confirmHandler = () => {
         navigate('confirmBill', {
             state: {
-              tableID: tableID,
+              tableID: tableID
             }
           });
     }
+    const addHandler = () => {
+        navigate('/dashboard/addPlate' , {
+            state: {
+              tableID: tableID
+            }
+        });
+    }
     return (
         <main className="table__detail">
-            {
-                //<Transition />
-            }
+            <Transition duration='0s'/>
             <div className="table__hero">
                 <img className="table__hero-img" src={HeroImage} alt="dashboard logo" />
                 <h2 className="table__hero-title">{`Table No: ${tableID}`}</h2>
-                <button className="table__hero-btn"> <img src={AddFood} alt="add food icon eat on time" /> Add Food</button>
+                <button className="table__hero-btn" onClick={addHandler}> <img src={AddFood} alt="add food icon eat on time" /> Ordenar</button>
             </div>
             <div className="table__info">
                 <span className="table__info-status">

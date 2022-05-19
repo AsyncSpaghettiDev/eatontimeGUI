@@ -29,9 +29,8 @@ const TableDashboard = () => {
     }, [])
     return (
         <section className="table__dashboard">
-            {
-                //<Transition />
-            }
+            <Transition duration='0s'/>
+            
             <div className="dashboard__hero">
                 <img className="dashboard__hero-img" src={HeroImage} alt="dashboard logo" />
                 <h2 className="dashboard__hero-title">Mesas</h2>

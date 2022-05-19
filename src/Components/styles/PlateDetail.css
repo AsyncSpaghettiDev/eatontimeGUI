@@ -18,7 +18,6 @@
 
 .plate-name{
     font-family: var(--ff-main);
-    margin: 0;
     grid-area: name;
     align-self: flex-end;
 }

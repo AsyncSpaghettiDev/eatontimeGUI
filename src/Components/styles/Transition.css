@@ -10,7 +10,7 @@
     flex-direction: column;
     background-color: var(--bg-primary-200);
     transform: scale(1);
-    animation: hide 500ms ease-in 3.5s forwards;
+    animation: hide 500ms ease-in var(--transition-duration) forwards;
 }
 
 @keyframes hide {
