@@ -1,6 +1,6 @@
 .plate__detail{
     display: grid;
-    grid-template-columns: 5.5em 18ch 12ch;
+    grid-template-columns: 5.5em 25ch 12ch;
     grid-template-rows: 3em repeat(2, 1.25em);
     grid-template-areas: 
     'img name .'

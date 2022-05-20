@@ -1,6 +1,10 @@
 // Styles
 import './styles/TableDetail.css';
 
+// Data
+import Pizzas from "../Data/pizzas.json";
+import Desserts from "../Data/desserts.json";
+
 // Components
 import Transition from '../Components/Transition.jsx';
 import PlateDetail from '../Components/PlateDetail';
@@ -26,17 +30,18 @@ const TableDetail = () => {
     const detailedTable = {
         status: 'ocupada',
         people: 7,
-        in: inTime.getHours().toString().padStart(2, '0') + ":" + inTime.getMinutes(),
-        out: outTime.getHours().toString().padStart(2, '0') + ":" + outTime.getMinutes()
+        in: inTime.getHours().toString().padStart(2, '0') + ":" + inTime.getMinutes().toString().padStart(2, '0'),
+        out: outTime.getHours().toString().padStart(2, '0') + ":" + outTime.getMinutes().toString().padStart(2, '0')
     }
 
     useEffect(() => {
         setPlates([
-            { id: 1, img: 'https://picsum.photos/id/237/400/400', name: 'Nam libero', price: 75, quantity: 2 },
-            { id: 2, img: 'https://picsum.photos/id/107/400/400', name: 'non provident', price: 95, quantity: 4 },
-            { id: 3, img: 'https://picsum.photos/id/98/400/400', name: 'molestie in', price: 130, quantity: 3 },
-            { id: 4, img: 'https://picsum.photos/id/192/400/400', name: 'Cras suscipit', price: 105, quantity: 6 },
-            { id: 5, img: 'https://picsum.photos/id/305/400/400', name: 'molestias excepturi', price: 45, quantity: 1 }
+            { ...Pizzas[1], quantity: 2 },
+            { ...Desserts[2], quantity: 5 },
+            { ...Pizzas[15], quantity: 2 },
+            { ...Pizzas[9], quantity: 1 },
+            { ...Desserts[0], quantity: 1 },
+            { ...Pizzas[5], quantity: 2 }
         ])
     }, [])
 

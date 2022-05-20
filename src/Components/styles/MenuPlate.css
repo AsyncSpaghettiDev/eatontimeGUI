@@ -1,0 +1,39 @@
+.menu__plate__detail{
+    display: grid;
+    grid-template-columns: 1fr 1fr 10ch;
+    grid-template-rows: 200px max-content 1fr;
+    grid-template-areas: 
+    'img img img'
+    'name name name'
+    'desc desc price'
+    ;
+    justify-items: center;
+    flex: 1;
+    padding: 0.5em;
+}
+
+.menu__plate__detail .plate-image{
+    border-radius: 50%;
+    width: 200px;
+    aspect-ratio: 1;
+    grid-area: img;
+}
+
+.menu__plate__detail .plate-name{
+    font-family: var(--ff-main);
+    text-align: center;
+    grid-area: name;
+}
+
+.menu__plate__detail .plate-desc{
+    font-family: var(--ff-alter);
+    align-self: center;
+    grid-area: desc;
+}
+
+.menu__plate__detail .plate-price{
+    font-family: var(--ff-alter);
+    align-self: center;
+    grid-area: price;
+    text-transform: uppercase;
+}
