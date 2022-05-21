@@ -21,7 +21,7 @@ const MenuPreview = ({ onTriggerStep, onSelectedPlate }) => {
     // UseEffect
     useEffect(() => {
         setPlates(FullMenu);
-    }, [])
+    }, []);
 
     // Event Handlers
     const handlerTrigger = (selectedId) => {

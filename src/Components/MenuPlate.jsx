@@ -3,10 +3,12 @@ import './styles/MenuPlate.css';
 
 // Components
 
-const MenuPlate = ({ id, img, name, price, description, onConfirm }) => {
+const MenuPlate = ({ id, img, name, price, description, onConfirm, onAsk }) => {
 
     const handlerConfirmSelect = () => {
+
         setTimeout(() => {
+            onAsk();
             if (window.confirm(`¿Desea ordenar ${name}?`)) onConfirm(id);
         }, 250)
     }
