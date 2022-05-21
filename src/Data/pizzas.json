@@ -1,12 +1,12 @@
 [
     {
-        "id": 1,
+        "id": 0,
         "name": "Margherita",
         "veg": true,
         "price": 449,
         "description": "Cheese",
         "quantity": 1,
-        "img": "https://api.pizzahut.io/v1/content/en-in/in-1/images/pizza/margherita.7d3b623ceb66e87fc7247fa81c6cfdc1.1.jpg?width=800",
+        "img": "https://api.pizzahut.io/v1/content/en-in/in-1/images/pizza/margherita.7d3b623ceb66e87fc7247fa81c6cfdc1.1.jpg",
         "sizeandcrust": [
             {
                 "mediumPan": [
@@ -28,13 +28,13 @@
         ]
     },
     {
-        "id": 2,
+        "id": 1,
         "name": "Tandoori Paneer",
         "veg": true,
         "price": 529,
         "description": "Spiced paneeer, Onion,Green Capsicum & Red Paprika in Tandoori Sauce",
         "quantity": 1,
-        "img": "https://api.pizzahut.io/v1/content/en-in/in-1/images/pizza/tandoori-paneer.954d93452557209bebe0b7f49e776ba2.1.jpg?width=522",
+        "img": "https://api.pizzahut.io/v1/content/en-in/in-1/images/pizza/tandoori-paneer.954d93452557209bebe0b7f49e776ba2.1.jpg",
         "sizeandcrust": [
             {
                 "mediumPan": [
@@ -56,13 +56,13 @@
         ]
     },
     {
-        "id": 3,
+        "id": 2,
         "name": "Veggie Supreme",
         "veg": true,
         "price": 569,
         "description": "Black Olives,Green Capsicum, Mushroom, Onion,Red Paprika, Sweet Corn",
         "quantity": 1,
-        "img": "https://api.pizzahut.io/v1/content/en-in/in-1/images/pizza/veggie-supreme.403f5e6cf9abb29247a97732c8aae860.1.jpg?width=800",
+        "img": "https://api.pizzahut.io/v1/content/en-in/in-1/images/pizza/veggie-supreme.403f5e6cf9abb29247a97732c8aae860.1.jpg",
         "sizeandcrust": [
             {
                 "mediumPan": [
@@ -84,13 +84,13 @@
         ]
     },
     {
-        "id": 4,
+        "id": 3,
         "name": "Double Paneer Supreme",
         "veg": true,
         "price": 569,
         "description": "Spiced Paneer, Herbed Onion&Green Capsicum, Red Paprika",
         "quantity": 1,
-        "img": "https://api.pizzahut.io/v1/content/en-in/in-1/images/pizza/double-paneer-supreme.9d215eb865735ce44225317997153b73.1.jpg?width=522",
+        "img": "https://api.pizzahut.io/v1/content/en-in/in-1/images/pizza/double-paneer-supreme.9d215eb865735ce44225317997153b73.1.jpg",
         "sizeandcrust": [
             {
                 "mediumPan": [
@@ -118,7 +118,7 @@
         "price": 529,
         "description": "Veg Kebab,Onion,Green Capsicum,Tomato & Sweet Corn in Tandoori Sauce",
         "quantity": 1,
-        "img": "https://api.pizzahut.io/v1/content/en-in/in-1/images/pizza/veg-kebab-surprise.6895b792bfdd274d1bb822ff8dc1a69b.1.jpg?width=522",
+        "img": "https://api.pizzahut.io/v1/content/en-in/in-1/images/pizza/veg-kebab-surprise.6895b792bfdd274d1bb822ff8dc1a69b.1.jpg",
         "sizeandcrust": [
             {
                 "mediumPan": [
@@ -146,7 +146,7 @@
         "price": 629,
         "description": "Herbed Chicken,Schezwan Chicken Meatball,Chicken Tikka",
         "quantity": 1,
-        "img":"https://api.pizzahut.io/v1/content/en-in/in-1/images/pizza/chicken-supreme.f29fa58b7f2a3ec307b6c0b44411f900.1.jpg?width=522",
+        "img":"https://api.pizzahut.io/v1/content/en-in/in-1/images/pizza/chicken-supreme.f29fa58b7f2a3ec307b6c0b44411f900.1.jpg",
         "sizeandcrust": [
             {
                 "mediumPan": [
@@ -174,7 +174,7 @@
         "price": 629,
         "description": "Chicken Tikka,Chicken Malai Tikka,Onion,Red Paprika",
         "quantity": 1,
-        "img":"https://api.pizzahut.io/v1/content/en-in/in-1/images/pizza/chicken-tikka-supreme.d118fcb7a45549b90fc6313f8b45a9cf.1.jpg?width=522",
+        "img":"https://api.pizzahut.io/v1/content/en-in/in-1/images/pizza/chicken-tikka-supreme.d118fcb7a45549b90fc6313f8b45a9cf.1.jpg",
         "sizeandcrust": [
             {
                 "mediumPan": [
@@ -202,7 +202,7 @@
         "price": 629,
         "description": "Schezwan Chicken Meatball Herbed Chicken,Chicken Sausage,Geen Capsicum, Onion,Red Paprika",
         "quantity": 1,
-        "img":"https://api.pizzahut.io/v1/content/en-in/in-1/images/pizza/triple-chicken-feast.21e57422a5579843b4722a067fbda8ca.1.jpg?width=522",
+        "img":"https://api.pizzahut.io/v1/content/en-in/in-1/images/pizza/triple-chicken-feast.21e57422a5579843b4722a067fbda8ca.1.jpg",
         "sizeandcrust": [
             {
                 "mediumPan": [
@@ -230,7 +230,7 @@
         "price": 569,
         "description": "Chicken Tikka, Onion, Tomato",
         "quantity": 1,
-        "img":"https://api.pizzahut.io/v1/content/en-in/in-1/images/pizza/chicken-tikka.4e3ef28838886936da1a2280543cfae8.1.jpg?width=522",
+        "img":"https://api.pizzahut.io/v1/content/en-in/in-1/images/pizza/chicken-tikka.4e3ef28838886936da1a2280543cfae8.1.jpg",
         "sizeandcrust": [
             {
                 "mediumPan": [
@@ -258,7 +258,7 @@
         "price": 529,
         "description": "Chicken Sausage",
         "quantity": 1,
-        "img":"https://api.pizzahut.io/v1/content/en-in/in-1/images/pizza/double-chicken-sausage.27693ba787c68a763bb3f0e397de0019.1.jpg?width=522",
+        "img":"https://api.pizzahut.io/v1/content/en-in/in-1/images/pizza/double-chicken-sausage.27693ba787c68a763bb3f0e397de0019.1.jpg",
         "sizeandcrust": [
             {
                 "mediumPan": [
@@ -286,7 +286,7 @@
         "price": 469,
         "description": "Schezwan Chicken Meatball Onion",
         "quantity": 1,
-        "img": "https://api.pizzahut.io/v1/content/en-in/in-1/images/pizza/spiced-chicken-meatballs.fcb515f6af388d6e30df81ca2968798c.1.jpg?width=522",
+        "img": "https://api.pizzahut.io/v1/content/en-in/in-1/images/pizza/spiced-chicken-meatballs.fcb515f6af388d6e30df81ca2968798c.1.jpg",
         "sizeandcrust": [
             {
                 "mediumPan": [
@@ -314,7 +314,7 @@
         "price": 419,
         "description": "Extra Cheese on Cheese",
         "quantity": 1,
-        "img":"https://api.pizzahut.io/v1/content/en-in/in-1/images/pizza/double-cheese.f8ac8046d97de45670aa7d41b5cf8db6.1.jpg?width=522",
+        "img":"https://api.pizzahut.io/v1/content/en-in/in-1/images/pizza/double-cheese.f8ac8046d97de45670aa7d41b5cf8db6.1.jpg",
         "sizeandcrust": [
             {
                 "mediumPan": [

@@ -1,7 +1,8 @@
 .plate__detail{
+    max-width: 400px;
     display: grid;
-    grid-template-columns: 5.5em 25ch 12ch;
-    grid-template-rows: 3em repeat(2, 1.25em);
+    grid-template-columns: clamp(55px, 100%, 75px) 1fr 12ch;
+    grid-template-rows: 1fr repeat(2, 1.25em);
     grid-template-areas: 
     'img name .'
     'img price btn'
@@ -11,9 +12,14 @@
 }
 
 .plate__detail .plate-image{
+    object-fit: cover;
+    object-position: center;
+    overflow: hidden;
     grid-area: img;
-    max-width: 100%;
+    width: 100%;
+    aspect-ratio: 1;
     border-radius: 2em;
+    justify-self: center;
 }
 
 .plate__detail .plate-name{

@@ -1,7 +1,8 @@
 .menu__preview{
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5em 1em;
+    justify-content: space-evenly;
+    gap: 1em;
 }
 
 .menu__preview .menu__title{

@@ -8,9 +8,6 @@ import TableDetail from './Pages/TableDetail.jsx';
 import TableDashboad from './Pages/TableDashboard.jsx';
 import AddPlate from './Pages/AddPlate.jsx';
 
-// Components
-import ConfirmModal from './Components/ConfirmBill.jsx';
-
 const App = () => {
     return (
         <BrowserRouter>
@@ -18,9 +15,7 @@ const App = () => {
                 <Route path='/' element={<Home />} />
                 <Route path='/dashboard' element={<Dashboard />} >
                     <Route index element={<TableDashboad />} />
-                    <Route path=':tableID' element={<TableDetail />} >
-                        <Route path='confirmBill' element={<ConfirmModal />} />
-                    </Route>
+                    <Route path=':tableID' element={<TableDetail />} />
                     <Route path='addPlate' element={<AddPlate />} />
                 </Route>
             </Routes>
