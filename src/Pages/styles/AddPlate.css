@@ -20,14 +20,17 @@
 
 .add_plate .step{
     opacity: 0;
+    height: 0;
     transform: translateX(100%);
     transition: opacity 750ms 500ms, transform 1s cubic-bezier(0, 0, 0.42, 1.29) 200ms;
 }
 
 .add_plate .fade{
+    visibility: collapse;
+    height: 0;
     opacity: 0;
     transform: translateX(-100%);
-    transition: opacity 750ms 100ms, transform 1s cubic-bezier(0.51, 0.36, 0.67, 1.38) 200ms;
+    transition: opacity 750ms 100ms, transform 1s cubic-bezier(0.51, 0.36, 0.67, 1.38) 200ms, visibility 0ms 750ms;
 }
 
 .add_plate .active{

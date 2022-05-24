@@ -3,16 +3,33 @@
     display: grid;
     place-items: center;
     inset: 0;
-    background-color: #0008;
+    background-color: #fff0;
+    animation: showModalContainer 250ms ease-out forwards;
+}
+
+@keyframes showModalContainer {
+    to{
+        background-color: #0008;
+    }
 }
 
 .dialog__container .dialog{
     width: min(85%, 60ch);
     padding: 1.25em 0.5em;
     border-radius: 0.5em;
-    background-color: var(--bg-primary-800);
+    background-color: #fff0;
     color: var(--clr-primary-200);
     text-align: center;
+    transform: scaleY(0);
+    transform-origin: top;
+    animation: showModal 300ms ease-in-out 150ms forwards;
+}
+
+@keyframes showModal {
+    to{
+        transform: scaleY(1);
+        background-color: var(--bg-primary-800);
+    }
 }
 
 .dialog__container .dialog-title{

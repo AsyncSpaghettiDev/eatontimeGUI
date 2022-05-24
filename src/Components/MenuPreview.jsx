@@ -7,29 +7,31 @@ import { useEffect, useState } from "react";
 // Components
 import MenuPlate from '../Components/MenuPlate.jsx';
 
-// Custom Hooks
-import useConfirmModal from '../CustomHooks/useConfirmModal';
-
 // Styles
 import "./styles/MenuPreview.css";
 
-const MenuPreview = ({ onTriggerStep, onSelectedPlate }) => {
+const MenuPreview = ({ onTriggerStep, onSelectedPlate, onShow, confirmStatus }) => {
     // Hooks
     const [plates, setPlates] = useState([]);
-    const { showModal, setShowConfirm, confirmResponse } = useConfirmModal();
 
     // UseEffect
     useEffect(() => {
         setPlates(FullMenu);
     }, []);
 
+    useEffect(() => {
+        if(confirmStatus) confirmTrigger();
+    },[confirmStatus])
+
     // Event Handlers
-    const handlerTrigger = (selectedId) => {
+    const confirmTrigger = () => {
         onTriggerStep({ one: -1, two: 1, three: 0 });
-        onSelectedPlate(FullMenu.find(plate => plate.id === selectedId));
     }
 
-    const showConfirmHandler = () => setShowConfirm(true);
+    const showConfirmHandler = (selectedId) => {
+        onShow(true);
+        onSelectedPlate(FullMenu.find(plate => plate.id === selectedId));
+    }
 
     return (
         <div className="menu__preview">
@@ -43,11 +45,9 @@ const MenuPreview = ({ onTriggerStep, onSelectedPlate }) => {
                         name={plate.name}
                         price={plate.price}
                         description={plate.description}
-                        onConfirm={handlerTrigger}
                         onAsk={showConfirmHandler}
                     />)
             }
-            {showModal()}
         </div>
     )
 }

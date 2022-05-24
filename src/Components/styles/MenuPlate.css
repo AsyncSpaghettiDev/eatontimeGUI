@@ -1,6 +1,6 @@
 .menu__plate__detail{
     display: grid;
-    grid-template-columns: 1fr 1fr 10ch;
+    /*grid-template-columns: 1fr 1fr 10ch;*/
     grid-template-rows: 200px max-content 1fr;
     grid-template-areas: 
     'img img img'
