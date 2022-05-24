@@ -1,0 +1,12 @@
+.menu__preview{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    gap: 1em;
+}
+
+.menu__preview .menu__title{
+    font-family: var(--ff-main);
+    flex: 1 0 100%;
+    text-align: center;
+}
