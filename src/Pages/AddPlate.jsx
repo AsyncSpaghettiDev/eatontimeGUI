@@ -17,7 +17,7 @@ const AddPlate = () => {
     let navigate = useNavigate();
     let { state } = useLocation();
     const [table, setTable] = useState();
-    const [step, setStep] = useState({ });
+    const [step, setStep] = useState({});
     const [currentPlate, setCurrentPlate] = useState(undefined);
     const { showModal, setShowConfirm, confirmResponse } = useConfirmModal();
 
@@ -28,15 +28,14 @@ const AddPlate = () => {
     }, [state, navigate]);
 
     useEffect(() => {
-        if(currentPlate !== undefined) console.log(currentPlate);
-    },[currentPlate]);
+        if (currentPlate !== undefined) console.log(currentPlate);
+    }, [currentPlate]);
 
     return (
         <main className="add_plate">
-            <Transition duration='0s' />
             <h2 className="order-title">{`Orden de la mesa #${table}`}</h2>
             <form onSubmit={(e) => e.preventDefault()} className="order">
-                <div className={step.one ? step.one === -1 ? 'step fade' : 'step active' : 'step'}>
+                <div className={step.one ? step.one === -1 ? 'step fade' : 'step active' : 'step'} >
                     <MenuPreview onTriggerStep={setStep} onSelectedPlate={setCurrentPlate} onShow={setShowConfirm} confirmStatus={confirmResponse} />
                 </div>
                 <div className={step.two ? step.two === -1 ? 'step fade' : 'step active' : 'step'}>
@@ -49,12 +48,13 @@ const AddPlate = () => {
                         description={currentPlate.description}
                     /> : null}
                 </div>
-                <div className={step.three ? step.three === -1 ? 'step fade' :  'step active' : 'step'}>
-                    
+                <div className={step.three ? step.three === -1 ? 'step fade' : 'step active' : 'step'}>
+                    <button>Step 3</button>
                 </div>
 
             </form>
             {showModal(currentPlate !== undefined ? `¿Desea ordenar ${currentPlate.name}?` : "Contact support for help")}
+            <Transition duration='0s' />
         </main>
     )
 }

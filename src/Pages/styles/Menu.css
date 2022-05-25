@@ -1,18 +1,25 @@
-.menu__preview{
+.menu{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
     gap: 1em;
 }
 
-.menu__preview .menu__title{
+.menu .menu__title{
     font-family: var(--ff-main);
-    flex: 1 1 100%;
+    flex: 1 0 100%;
     text-align: center;
 }
 
+.menu .plates{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25em 1em;
+    padding-inline: 1.25em;
+    justify-content: center;
+}
 
-.menu__preview .plates-title{
+.menu .plates-title{
     text-align: center;
     font-family: var(--ff-main);
     font-size: var(--fs-title);

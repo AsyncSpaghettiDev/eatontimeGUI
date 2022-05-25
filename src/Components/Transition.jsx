@@ -1,4 +1,4 @@
-import logo from '/../Images/logo.png';
+import logo from '../Images/logo.png';
 import './styles/Transition.css';
 
 const Transition = ({ duration = '3.5s' }) => {

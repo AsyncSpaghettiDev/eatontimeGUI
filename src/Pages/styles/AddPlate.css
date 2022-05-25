@@ -6,7 +6,7 @@
 }
 
 .add_plate .order{
-    position: relative;
+    display: grid;
 }
 
 .add_plate .order-title{
@@ -14,26 +14,24 @@
     font-family: var(--ff-main);
 }
 
-.add_plate .step:is(.active, .fade){
-    position: absolute;
-}
-
 .add_plate .step{
+    transform: scaleX(0);
     opacity: 0;
     height: 0;
-    transform: translateX(100%);
-    transition: opacity 750ms 500ms, transform 1s cubic-bezier(0, 0, 0.42, 1.29) 200ms;
+    transition: transform 750ms ease-in-out;
 }
 
 .add_plate .fade{
-    visibility: collapse;
-    height: 0;
+    transform: scaleX(0);
     opacity: 0;
-    transform: translateX(-100%);
-    transition: opacity 750ms 100ms, transform 1s cubic-bezier(0.51, 0.36, 0.67, 1.38) 200ms, visibility 0ms 750ms;
+    transform-origin: left;
+    z-index: 100;
+    transition: transform 750ms ease-in-out, opacity 250ms 500ms, height 0ms 750ms;
 }
 
 .add_plate .active{
+    transform: scaleX(1);
     opacity: 1;
-    transform: translateX(0);
+    height: auto;
+    transform-origin: right;   
 }
