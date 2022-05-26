@@ -7,7 +7,7 @@ const PlateDetail = ({ img, name, price, quantity }) => {
             <h3 className="plate-name"> {name} </h3>
             <p className="plate-price"> {`$${price} mxn`} </p>
             <p className="plate-quantity"> {`Cantidad: ${quantity}`} </p>
-            <button className="plate-update">Actualizar</button>
+            <button className="plate-update">Estado</button>
         </div>
     );
 }

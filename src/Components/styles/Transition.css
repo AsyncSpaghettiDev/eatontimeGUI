@@ -52,7 +52,7 @@
     background-color: var(--bg-primary-800);
     border-top-right-radius: 0.5em;
     border-bottom-right-radius: 0.5em;
-    animation: loading 3.5s ease-in-out 250ms  forwards ;
+    animation: loading var(--transition-duration) ease-in-out 250ms  forwards ;
 }
 
 @keyframes loading {
@@ -83,7 +83,7 @@
     border-radius: 50%;
     z-index: -1;
     opacity: 0;
-    animation: show 2.5s ease-out 50ms forwards;
+    animation: show var(--transition-duration) ease-out 50ms forwards;
 }
 @keyframes show {
     to{

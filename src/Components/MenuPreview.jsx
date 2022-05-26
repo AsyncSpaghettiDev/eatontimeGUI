@@ -12,7 +12,7 @@ import MenuOrderPlate from '../Components/MenuOrderPlate.jsx';
 // Styles
 import "./styles/MenuPreview.css";
 
-const MenuPreview = ({ onTriggerStep, onSelectedPlate, onShow, confirmStatus }) => {
+const MenuPreview = ({ onTriggerStep, onSelectedPlate}) => {
     // Hooks
     const [pizzas, setPizzas] = useState([]);
     const [desserts, setDesserts] = useState([]);
@@ -22,19 +22,10 @@ const MenuPreview = ({ onTriggerStep, onSelectedPlate, onShow, confirmStatus }) 
         setPizzas(PizzasMenu);
         setDesserts(DessertsMenu);
     }, []);
-
-    useEffect(() => {
-        if (confirmStatus) confirmTrigger();
-    }, [confirmStatus])
-
-    // Event Handlers
-    const confirmTrigger = () => {
-        onTriggerStep({ one: -1, two: 1, three: 0 });
-    }
-
+    
     const showConfirmHandler = (selectedId) => {
-        onShow(true);
         onSelectedPlate(FullMenu.find(plate => plate.id === selectedId));
+        onTriggerStep({ one: -1, two: 1, three: 0 });
     }
 
     return (

@@ -19,7 +19,7 @@ const AddPlate = () => {
     const [table, setTable] = useState();
     const [step, setStep] = useState({});
     const [currentPlate, setCurrentPlate] = useState(undefined);
-    const { showModal, setShowConfirm, confirmResponse } = useConfirmModal();
+    const { showModal, setShowConfirm, confirmResponse, resetResponse } = useConfirmModal();
 
     // Redirect on null table
     useEffect(() => {
@@ -28,34 +28,41 @@ const AddPlate = () => {
     }, [state, navigate]);
 
     useEffect(() => {
-        if (currentPlate !== undefined) console.log(currentPlate);
-    }, [currentPlate]);
+        if (step.one === -1) window.scroll({ top: 0, left: 0, behavior: 'smooth' })
+    }, [step]);
 
     return (
-        <main className="add_plate">
+        <section className="add_plate">
             <h2 className="order-title">{`Orden de la mesa #${table}`}</h2>
             <form onSubmit={(e) => e.preventDefault()} className="order">
                 <div className={step.one ? step.one === -1 ? 'step fade' : 'step active' : 'step'} >
-                    <MenuPreview onTriggerStep={setStep} onSelectedPlate={setCurrentPlate} onShow={setShowConfirm} confirmStatus={confirmResponse} />
+                    <MenuPreview
+                        onTriggerStep={setStep}
+                        onSelectedPlate={setCurrentPlate}
+                    />
                 </div>
                 <div className={step.two ? step.two === -1 ? 'step fade' : 'step active' : 'step'}>
-                    <button onClick={() => window.location.reload()}>Volver al menú</button>
                     {currentPlate !== undefined ? <CustomizePlate
                         id={currentPlate.id}
                         img={currentPlate.img}
                         name={currentPlate.name}
                         price={currentPlate.price}
                         description={currentPlate.description}
+                        onShow={setShowConfirm}
+                        onTriggerStep={setStep}
+                        resetModal={resetResponse}
+                        confirmStatus={confirmResponse}
                     /> : null}
                 </div>
                 <div className={step.three ? step.three === -1 ? 'step fade' : 'step active' : 'step'}>
-                    <button>Step 3</button>
+                    
+                    <button className='reload-menu' onClick={() => setStep({ one: 1, two: 0, three: -1 })}>Volver al menú</button>
                 </div>
 
             </form>
             {showModal(currentPlate !== undefined ? `¿Desea ordenar ${currentPlate.name}?` : "Contact support for help")}
             <Transition duration='0s' />
-        </main>
+        </section>
     )
 }
 

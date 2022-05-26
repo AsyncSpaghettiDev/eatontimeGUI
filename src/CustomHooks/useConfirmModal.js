@@ -17,10 +17,13 @@ const useConfirmModal = () => {
         onSelect={setConfirmResponse}
     /> : null;
 
+    const resetResponse = () => setConfirmResponse(undefined);
+
     return {
         showModal,
         setShowConfirm,
-        confirmResponse
+        confirmResponse,
+        resetResponse
     }
 }
 

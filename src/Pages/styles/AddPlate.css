@@ -18,20 +18,33 @@
     transform: scaleX(0);
     opacity: 0;
     height: 0;
-    transition: transform 750ms ease-in-out;
+    transition: transform 750ms ease-out 500ms;
 }
 
 .add_plate .fade{
     transform: scaleX(0);
     opacity: 0;
-    transform-origin: left;
+    height: 0;
     z-index: 100;
-    transition: transform 750ms ease-in-out, opacity 250ms 500ms, height 0ms 750ms;
+    transform-origin: left;
+    transition: transform 750ms ease-out 500ms, opacity 250ms 1000ms, height 0ms 1250ms;
 }
 
 .add_plate .active{
     transform: scaleX(1);
     opacity: 1;
-    height: auto;
-    transform-origin: right;   
+    height: max-content;
+    transform-origin: right;
+}
+
+.add_plate .reload-menu{
+    text-transform: uppercase;
+    padding: 1em 2em;
+    border-radius: 2em;
+    cursor: pointer;
+    font-family: var(--ff-main);
+    margin-block-start: 3em;
+    font-size: var(--fs-general);
+    color: var(--clr-primary-800);
+    border: 1.5px solid var(--bg-primary-800);
 }

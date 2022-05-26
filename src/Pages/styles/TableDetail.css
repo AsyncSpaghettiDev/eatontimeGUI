@@ -96,4 +96,5 @@
     color: var(--clr-primary-800);
     border: 1.5px solid var(--bg-primary-800);
     cursor: pointer;
+    font-family: var(--ff-main);
 }

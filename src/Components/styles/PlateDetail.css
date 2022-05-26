@@ -56,4 +56,5 @@
     color: var(--clr-primary-200);
     background-color: var(--bg-primary-800);
     cursor: pointer;
+    font-family: var(--ff-main);
 }
