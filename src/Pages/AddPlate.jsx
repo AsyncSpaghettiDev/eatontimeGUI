@@ -3,6 +3,8 @@ import './styles/AddPlate.css';
 // Components
 import Transition from '../Components/Transition.jsx';
 import MenuPreview from '../Components/MenuPreview.jsx';
+import OrderLoader from '../Components/OrderLoader.jsx';
+import OrderFinished from '../Components/OrderFinished.jsx';
 import CustomizePlate from '../Components/CustomizePlate.jsx';
 
 // Imports
@@ -10,6 +12,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 // Custom Hooks
+import useCounter from '../CustomHooks/useCounter';
 import useConfirmModal from '../CustomHooks/useConfirmModal';
 
 const AddPlate = () => {
@@ -19,29 +22,34 @@ const AddPlate = () => {
     const [table, setTable] = useState();
     const [step, setStep] = useState({});
     const [currentPlate, setCurrentPlate] = useState(undefined);
+    const { counter, increase, decrease, reset, greaterOne } = useCounter();
     const { showModal, setShowConfirm, confirmResponse, resetResponse } = useConfirmModal();
 
     // Redirect on null table
     useEffect(() => {
         state === null ? navigate('/') : setTable(state.tableID);
-        setStep({ one: 1, two: 0, three: 0 });
+        setStep({ one: 1, two: 0, three: 0, four: 0 });
     }, [state, navigate]);
 
     useEffect(() => {
         if (step.one === -1) window.scroll({ top: 0, left: 0, behavior: 'smooth' })
     }, [step]);
 
+    // Functions
+    const setQuantity = (value) => {
+        setCurrentPlate({ ...currentPlate, quantity: value });
+    }
     return (
         <section className="add_plate">
             <h2 className="order-title">{`Orden de la mesa #${table}`}</h2>
             <form onSubmit={(e) => e.preventDefault()} className="order">
-                <div className={step.one ? step.one === -1 ? 'step fade' : 'step active' : 'step'} >
+                <article className={step.one ? step.one === -1 ? 'step fade' : 'step active' : 'step'} >
                     <MenuPreview
                         onTriggerStep={setStep}
                         onSelectedPlate={setCurrentPlate}
                     />
-                </div>
-                <div className={step.two ? step.two === -1 ? 'step fade' : 'step active' : 'step'}>
+                </article>
+                <article className={step.two ? step.two === -1 ? 'step fade' : 'step active' : 'step'}>
                     {currentPlate !== undefined ? <CustomizePlate
                         id={currentPlate.id}
                         img={currentPlate.img}
@@ -52,12 +60,30 @@ const AddPlate = () => {
                         onTriggerStep={setStep}
                         resetModal={resetResponse}
                         confirmStatus={confirmResponse}
+                        onQuantity={setQuantity}
+                        counter={counter}
+                        increase={increase}
+                        decrease={decrease}
+                        reset={reset}
+                        greaterOne={greaterOne}
                     /> : null}
-                </div>
-                <div className={step.three ? step.three === -1 ? 'step fade' : 'step active' : 'step'}>
-                    
-                    <button className='reload-menu' onClick={() => setStep({ one: 1, two: 0, three: -1 })}>Volver al menú</button>
-                </div>
+                </article>
+                <article className={step.three ? step.three === -1 ? 'step fade' : 'step active' : 'step'}>
+                    <OrderLoader
+                        onFocus={step.three === 1}
+                        onTriggerStep={setStep}
+                    />
+                </article>
+                <article className={step.four ? step.four === -1 ? 'step fade' : 'step active' : 'step'}>
+                    {currentPlate !== undefined ? <OrderFinished
+                        name={currentPlate.name}
+                        price={currentPlate.price}
+                        quantity={currentPlate.quantity}
+
+                        onTriggerStep={setStep}
+                        reset={reset}
+                    /> : null}
+                </article>
 
             </form>
             {showModal(currentPlate !== undefined ? `¿Desea ordenar ${currentPlate.name}?` : "Contact support for help")}

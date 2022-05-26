@@ -25,7 +25,7 @@ const MenuPreview = ({ onTriggerStep, onSelectedPlate}) => {
     
     const showConfirmHandler = (selectedId) => {
         onSelectedPlate(FullMenu.find(plate => plate.id === selectedId));
-        onTriggerStep({ one: -1, two: 1, three: 0 });
+        onTriggerStep({ one: -1, two: 1, three: 0, four: 0 });
     }
 
     return (

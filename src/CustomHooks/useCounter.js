@@ -7,11 +7,13 @@ const useCounter = () => {
         if (counter > 1) setCounter(counter - 1);
         else alert('No se puede decrementar más');
     }
+    const reset = () => setCounter(1);
     const greaterOne = () => counter > 1;
     return{
         counter,
         increase,
         decrease,
+        reset,
         greaterOne
     }
 }
