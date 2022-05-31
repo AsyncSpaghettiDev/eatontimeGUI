@@ -14,15 +14,26 @@
     padding: 0.5em;
 }
 
-.home .home__link{
-    padding: 1em;
+.home .home__link,
+.home .home__link-flotant{
     text-decoration: none;
     display: flex;
     flex-direction: column;
     color: var(--clr-black);
     font-family: var(--ff-alter);
-    width: clamp(150px, 40%, 225px);
     border-radius: 0.25em;
+}
+
+.home .home__link{
+    padding: 1em;
+    width: clamp(150px, 40%, 225px);
+}
+
+.home .home__link-flotant{
+    top: 0.25em;
+    right: 0.5em;
+    position: absolute;
+    width: 50px;
 }
 
 .home .home__link-image{

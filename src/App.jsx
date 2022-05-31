@@ -4,6 +4,7 @@ import './App.css';
 // Pages
 import Menu from './Pages/Menu.jsx';
 import Home from './Pages/Home.jsx';
+import Login from './Pages/Login.jsx';
 import AddPlate from './Pages/AddPlate.jsx';
 import Dashboard from './Pages/Dashboard.jsx';
 import TableDetail from './Pages/TableDetail.jsx';
@@ -20,6 +21,7 @@ const App = () => {
                     <Route path='addPlate' element={<AddPlate />} />
                 </Route>
                 <Route path='/menu' element={<Menu />} />
+                <Route path='/login' element={<Login />} />
             </Routes>
         </BrowserRouter>
     )

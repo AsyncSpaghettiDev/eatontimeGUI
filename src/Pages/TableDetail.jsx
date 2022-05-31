@@ -4,10 +4,12 @@ import './styles/TableDetail.css';
 // Data
 import Pizzas from "../Data/pizzas.json";
 import Desserts from "../Data/desserts.json";
+import FullMenu from "../Data/menu.json";
 
 // Components
-import Transition from '../Components/Transition.jsx';
 import PlateDetail from '../Components/PlateDetail';
+import Transition from '../Components/Transition.jsx';
+import PlateStatusModal from '../Components/PlateStatusModal';
 
 // Custom hooks
 import useConfirmModal from '../CustomHooks/useConfirmModal';
@@ -25,6 +27,8 @@ const TableDetail = () => {
     let { tableID } = useParams();
     const navigate = useNavigate();
     const [plates, setPlates] = useState([]);
+    const [showStatus, setShowStatus] = useState(false);
+    const [selectedPlate, setSelectedPlate] = useState({})
     const [detailedTable, setDetailedTable] = useState({});
     const { showModal, setShowConfirm, confirmResponse } = useConfirmModal();
 
@@ -59,6 +63,11 @@ const TableDetail = () => {
     // Handlers
     const showConfirmHandler = () => setShowConfirm(true);
 
+    const showStatusHandler = (currentPlate) => {
+        setSelectedPlate(currentPlate);
+        setShowStatus(true);
+    }
+
     const addHandler = () => {
         navigate('/dashboard/addPlate', {
             state: {
@@ -78,7 +87,12 @@ const TableDetail = () => {
             <div className="table__info">
                 <span className="table__info-status">
                     {`Estado: ${detailedTable.status}`}
-                    <span className={detailedTable.status === 'ocupada' ? 'table__info--active' : 'table__info--inactive'}></span>
+                    <span className={
+                        detailedTable.status === 'ocupada'
+                            ? 'table__info--active' :
+                            detailedTable.status === 'pendiente' ? 'table__info--awaiting' :
+                                'table__info--inactive'}
+                    ></span>
                 </span>
                 <span className="table__info-people">{`Personas: ${detailedTable.people}`} </span>
                 <span className="table__info-in">{`Hora de Entrada: ${detailedTable.in}`} </span>
@@ -86,12 +100,34 @@ const TableDetail = () => {
             </div>
             <div className="table__plates">
                 {
-                    plates.map(plate => <PlateDetail key={plate.id} img={plate.img} name={plate.name} price={plate.price} quantity={plate.quantity} />)
+                    plates.map(plate =>
+                        <PlateDetail
+                            id={plate.id}
+                            key={plate.id}
+                            img={plate.img}
+                            name={plate.name}
+                            price={plate.price}
+                            quantity={plate.quantity}
+                            onClick={showStatusHandler}
+                        />)
                 }
             </div>
             <div className='table__form'>
-                <input onClick={showConfirmHandler} className='table__form-submit' type="button" value="Pedir Cuenta" />
+                {detailedTable.status === 'ocupada' ?
+                    <input onClick={showConfirmHandler} className='table__form-submit' type="button" value="Pedir Cuenta" />
+                    : detailedTable.status === 'pendiente' ?
+                    <output className='table__form-total'>{`Subtotal: $${plates.reduce((partialSum, a) => partialSum + a.price, 0)} MXN`}</output>
+                    : null}
             </div>
+            {showStatus ?
+                <PlateStatusModal
+                    onDismiss={() => { setShowStatus(false) }}
+                    // Cambiar por una consulta a la api para obtener toda la información junta
+                    origin={tableID}
+                    data={FullMenu.find(plate => plate.id === selectedPlate.id)}
+                    time={"10:15am"}
+                    status={"servida"}
+                /> : null}
             {showModal(`Pedir Cuenta Mesa #${tableID}`, '¿Desea solicitar la cuenta de la mesa?')}
         </main>
     )

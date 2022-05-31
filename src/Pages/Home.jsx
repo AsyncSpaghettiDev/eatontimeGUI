@@ -1,4 +1,5 @@
 // Resources
+import Login from '../Images/login.png';
 import MenuImage from '../Images/menu.png';
 import DashboardImage from '../Images/dashboard.svg';
 
@@ -21,6 +22,10 @@ const Home = () => {
             <Link className='home__link' to='/menu'>
                 <img className='home__link-image' src={MenuImage} alt="eat on time tables dashboard" />
                 <p className="home__link-text">Menu</p>
+            </Link>
+            <Link className='home__link-flotant' to='/login' replace={false} >
+                <img className='home__link-image' src={Login} alt="eat on time login" />
+                <p className="home__link-text">Login</p>
             </Link>
         </main>
     )

@@ -59,6 +59,7 @@
 }
 
 .table__info--active,
+.table__info--awaiting,
 .table__info--inactive{
     width: 1em;
     display: inline-block;
@@ -72,6 +73,10 @@
 
 .table__info--inactive{
     background-color: green;
+}
+
+.table__info--awaiting{
+    background-color: orange;
 }
 
 .table__plates{
@@ -88,13 +93,21 @@
     justify-content: center;
 }
 
+.table__form-total,
 .table__form-submit{
-    text-transform: uppercase;
     padding: 1em 2em;
+    text-transform: uppercase;
+    font-family: var(--ff-main);
+}
+
+.table__form-total{
+    color: var(--clr-black);
+    font-size: var(--fs-title);
+}
+.table__form-submit{
+    cursor: pointer;
     border-radius: 2em;
     font-size: var(--fs-general);
     color: var(--clr-primary-800);
     border: 1.5px solid var(--bg-primary-800);
-    cursor: pointer;
-    font-family: var(--ff-main);
 }
