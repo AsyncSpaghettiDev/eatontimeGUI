@@ -47,3 +47,14 @@
     0 0 0.25em var(--clr-grey), 
     0 0 0.25em 0.5em var(--bg-primary-800);
 }
+
+.home .user-welcome-message{
+    position: fixed;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--ff-main);
+    font-size: var(--fs-title);
+    cursor: not-allowed;
+    width: 100%;
+}

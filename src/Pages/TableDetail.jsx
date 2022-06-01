@@ -82,7 +82,10 @@ const TableDetail = () => {
             <div className="table__hero">
                 <img className="table__hero-img" src={HeroImage} alt="dashboard logo" />
                 <h2 className="table__hero-title">{`Table No: ${tableID}`}</h2>
-                <button className="table__hero-btn" onClick={addHandler}> <img src={AddFood} alt="add food icon eat on time" /> Ordenar</button>
+                {
+                    detailedTable.status === 'ocupada' &&
+                    <button className="table__hero-btn" onClick={addHandler}> <img src={AddFood} alt="add food icon eat on time" /> Ordenar</button>
+                }
             </div>
             <div className="table__info">
                 <span className="table__info-status">
@@ -116,8 +119,8 @@ const TableDetail = () => {
                 {detailedTable.status === 'ocupada' ?
                     <input onClick={showConfirmHandler} className='table__form-submit' type="button" value="Pedir Cuenta" />
                     : detailedTable.status === 'pendiente' ?
-                    <output className='table__form-total'>{`Subtotal: $${plates.reduce((partialSum, a) => partialSum + a.price, 0)} MXN`}</output>
-                    : null}
+                        <output className='table__form-total'>{`Subtotal: $${plates.reduce((partialSum, a) => partialSum + (a.price * a.quantity), 0)} MXN`}</output>
+                        : null}
             </div>
             {showStatus ?
                 <PlateStatusModal
@@ -126,7 +129,7 @@ const TableDetail = () => {
                     origin={tableID}
                     data={FullMenu.find(plate => plate.id === selectedPlate.id)}
                     time={"10:15am"}
-                    status={"servida"}
+                    status={"Servida"}
                 /> : null}
             {showModal(`Pedir Cuenta Mesa #${tableID}`, '¿Desea solicitar la cuenta de la mesa?')}
         </main>

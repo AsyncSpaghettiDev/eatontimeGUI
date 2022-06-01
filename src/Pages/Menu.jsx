@@ -27,7 +27,7 @@ const Menu = () => {
 
     return (
         <main className="menu">
-            <NavBar />
+            <NavBar showUser={false} />
             <h1 className="menu__title">EatOnTime Menu</h1>
             <div className="plates">
                 <p className="plates-title">Pizzas</p>
