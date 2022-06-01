@@ -14,7 +14,7 @@ const Dashboard = () => {
     useEffect(() => redirect(), [])
     return (
         <main className="dashboard">
-            <NavBar />
+            <NavBar noBack />
             <Outlet />
         </main>
     )

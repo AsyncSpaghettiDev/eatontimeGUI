@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import './styles/NavBar.css';
 
-const NavBar = ({ showUser = true }) => {
+const NavBar = ({ noBack = false, showUser = true }) => {
     // Hooks
     const [cookies, _, removeCookie] = useCookies(['role', 'name']);
     const navigate = useNavigate();
@@ -23,7 +23,10 @@ const NavBar = ({ showUser = true }) => {
 
     return (
         <nav className="navbar__header">
-            <span className='navbar__back' onClick={returnHandler}> &#5176; </span>
+            {
+                !noBack &&
+                <span className='navbar__back' onClick={returnHandler}> &#5176; </span>
+            }
             <h1 className='navbar-header' onClick={homeHandler} >EatOnTime</h1>
             {
                 showUser && cookies.role &&
