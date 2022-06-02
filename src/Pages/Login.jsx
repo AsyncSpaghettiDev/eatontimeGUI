@@ -6,7 +6,7 @@ import Users from '../Data/users.json';
 
 import NavBar from "../Components/NavBar";
 import Transition from '../Components/Transition';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import { useEffect, useState } from 'react';
 
@@ -15,12 +15,21 @@ const Login = () => {
     let navigate = useNavigate();
     const [_, setCookie] = useCookies(['role', 'user']);
     const [validForm, setValidForm] = useState(true);
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [from, setFrom] = useState();
+    const [searchParams, __] = useSearchParams();
+    let location = useLocation();
+
+    // UseEffect
+    useEffect(() => {
+        if (searchParams.get('user') != null)
+            console.log(searchParams.get('user'));
+        setFrom(location.state?.from?.pathname || "/");
+    }, []);
 
     useEffect(() => {
-        if(searchParams.get('user') != null)
-            console.log(searchParams.get('user'));
-    }, [])
+        if (!validForm)
+            setTimeout(() => setValidForm(true), 2000);
+    }, [validForm]);
 
     // Handlers
     const submitHandler = e => {
@@ -37,28 +46,35 @@ const Login = () => {
                 path: '/',
                 maxAge: role === 'TABLE' ? 10800 : 86400
             });
-            navigate('/');
+            navigate(from, { replace: true });
         }
-        else
-            setValidForm(false);
-
     }
     // Functions
     const fakeValidation = (user, password) => {
-        const {R_USER_NAME, USER_ROLE} = Users.find(reg => reg.R_USER_NAME == user && reg.USER_PASSWORD == password)
-        if (R_USER_NAME && USER_ROLE)
+        const userFinded = Users.find(reg => reg.R_USER_NAME == user && reg.USER_PASSWORD == password);
+        if (userFinded) {
+            const { R_USER_NAME, USER_ROLE } = userFinded;
             return [true, R_USER_NAME, USER_ROLE];
+        }
+        setValidForm(false);
         return [false, null, null];
     }
     return (
         <main className="login">
             <NavBar />
-            <form onSubmit={submitHandler} className="login__form" autoComplete='off' >
+            <form
+                onSubmit={submitHandler}
+                className={validForm ? 'login__form' : 'login__form invalid'}
+                autoComplete='off'>
                 <img className='login__form-img' src={EOTLogo} alt="" />
                 <label className="login__form-label" htmlFor="usr-name">Nombre de usuario</label>
                 <input className="login__form-input" placeholder='Ingrese su usuario' type="text" name="usr-name" id="usr-name" />
                 <label className="login__form-label" htmlFor="usr-pswd">Contraseña</label>
                 <input className="login__form-input" placeholder='Ingrese su contraseña' type="password" name="usr-pswd" id="usr-pswd" />
+                {
+                    !validForm &&
+                    <p className="login__form-warn">Credenciales inválidas, prueba otra vez.</p>
+                }
                 <input className="login__form-submit" type="submit" value="Ingresar" />
             </form>
             <Transition duration='0s' />

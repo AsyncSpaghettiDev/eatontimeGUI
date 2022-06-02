@@ -24,7 +24,7 @@ const NavBar = ({ noBack = false, showUser = true }) => {
     return (
         <nav className="navbar__header">
             {
-                !noBack &&
+                !noBack || cookies.role === 'ADMIN' &&
                 <span className='navbar__back' onClick={returnHandler}> &#5176; </span>
             }
             <h1 className='navbar-header' onClick={homeHandler} >EatOnTime</h1>

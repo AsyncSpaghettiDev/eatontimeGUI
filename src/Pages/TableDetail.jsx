@@ -7,8 +7,9 @@ import Desserts from "../Data/desserts.json";
 import FullMenu from "../Data/menu.json";
 
 // Components
-import PlateDetail from '../Components/PlateDetail';
+import Stopwatch from '../Components/Stopwatch.jsx';
 import Transition from '../Components/Transition.jsx';
+import PlateDetail from '../Components/PlateDetail.jsx';
 import PlateStatusModal from '../Components/PlateStatusModal';
 
 // Custom hooks
@@ -49,8 +50,9 @@ const TableDetail = () => {
         ])
         // Fake Info
         const inTime = new Date();
+        inTime.setMinutes(inTime.getMinutes() - 35);
         const outTime = new Date(inTime);
-        outTime.setMinutes(inTime.getMinutes() + 35);
+        outTime.setMinutes(inTime.getMinutes() + 65);
 
         setDetailedTable({
             status: 'ocupada',
@@ -99,6 +101,14 @@ const TableDetail = () => {
                 </span>
                 <span className="table__info-people">{`Personas: ${detailedTable.people}`} </span>
                 <span className="table__info-in">{`Hora de Entrada: ${detailedTable.in}`} </span>
+                <Stopwatch
+                    start={
+                        {
+                            hours: 0,
+                            minutes: 58
+                        }
+                    }
+                />
                 <span className="table__info-out">{`Hora de Salida: ${detailedTable.out}`} </span>
             </div>
             <div className="table__plates">
