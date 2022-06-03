@@ -5,22 +5,27 @@ import EmployeeResume from '../Components/EmployeeResume'
 
 import Users from '../Data/users.json';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 const Employees = () => {
     const [employees, setEmployees] = useState([]);
-    const [chefs, setChefs] = useState([])
+    const [chefs, setChefs] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         setEmployees(Users.filter(usr => usr.USER_ROLE === 'EMPLOYEE'));
         setChefs(Users.filter(usr => usr.USER_ROLE === 'CHEF'));
     }, []);
+
+    const onNewHandler = () => {
+        navigate('new');
+    }
     return (
         <main className="employees">
             <NavBar noBack />
             <div className="employees__add">
                 <h2 className="employees__add-title">Lista de empleados</h2>
-                <button className="employees__add-new">Nuevo</button>
+                <button className="employees__add-new" onClick={onNewHandler} >Nuevo</button>
             </div>
             <table className='employees__list' >
                 <tbody id='gral__employees'>
@@ -62,6 +67,7 @@ const Employees = () => {
                     }
                 </tbody>
             </table>
+            <Outlet />
         </main>
     )
 }

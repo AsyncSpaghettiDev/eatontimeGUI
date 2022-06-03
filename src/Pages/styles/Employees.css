@@ -23,6 +23,7 @@
 }
 
 .employees .employees__add-new{
+    color: var(--clr-black);
     padding-inline: 2em;
     padding-block: 0.5em;
     border-radius: 2em;
