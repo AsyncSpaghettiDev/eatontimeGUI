@@ -48,6 +48,16 @@
     0 0 0.25em 0.5em var(--bg-primary-800);
 }
 
+.home .home__link-last{
+    height: 4rem;
+    width: 100%;
+}
+
+.home .home__link-last:hover{
+    box-shadow: none;
+    cursor: default;
+}
+
 .home .user-welcome-message{
     position: fixed;
     bottom: 5px;

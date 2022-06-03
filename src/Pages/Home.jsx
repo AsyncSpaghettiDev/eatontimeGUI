@@ -2,6 +2,7 @@
 import Login from '../Images/login.png';
 import MenuImage from '../Images/menu.png';
 import DashboardImage from '../Images/dashboard.svg';
+import EmployeesImage from '../Images/empleados.png';
 
 // Styles
 import './styles/Home.css';
@@ -31,17 +32,27 @@ const Home = () => {
                 <p className="home__link-text">Menu</p>
             </Link>
             {
+                cookies.role === 'ADMIN' &&
+                <Link className='home__link' to='/employees'>
+                    <img src={EmployeesImage} alt="" className="home__link-image" />
+                    <p className="home__link-text">Empleados</p>
+                </Link>
+            }
+            <Link className='home__link home__link-last' to='/' ></Link>
+            {
                 !cookies.role &&
                 <Link className='home__link-flotant' to='/login' replace={false} >
                     <img className='home__link-image' src={Login} alt="eat on time login" />
                     <p className="home__link-text">Login</p>
                 </Link>
             }
-            {cookies.role &&
+            {
+                cookies.role &&
                 <p className='user-welcome-message'
                     onClick={onClickHandler}>
                     {`Welcome ${cookies.name} (${cookies.role}) `}
-                </p>}
+                </p>
+            }
         </main>
     )
 }
