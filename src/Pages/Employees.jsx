@@ -5,20 +5,121 @@ import EmployeeResume from '../Components/EmployeeResume'
 
 import Users from '../Data/users.json';
 import { useEffect, useState } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+
+// Custom Hooks
+import useFormModal from '../CustomHooks/useFormModal';
 
 const Employees = () => {
+    // Hooks
     const [employees, setEmployees] = useState([]);
     const [chefs, setChefs] = useState([]);
-    const navigate = useNavigate();
+    const { showFormModal, setShowForm, formResponse, resetFormResponse } = useFormModal();
+    const [modalConfiguration, setModalConfiguration] = useState(undefined);
+
+    // Inputs for modal configs
+    const inputConfigAdd = [
+        {
+            "id": "emp-number",
+            "label": "Número de empleado",
+            "input__type": "number",
+            "style": {
+                "width": "12ch"
+            }
+        },
+        {
+            "id": "emp-name",
+            "label": "Nombre del empleado",
+            "input__type": "text"
+        },
+        {
+            "id": "emp-role",
+            "label": "Rol del empleado",
+            "input": true,
+            "input__type": "radio",
+            "radios__name": "employee-role",
+            "radios__buttons": [
+                {
+                    "id": "employee-role-employee",
+                    "label": "Empleado",
+                    "checked": true
+                },
+                {
+                    "id": "employee-role-chef",
+                    "label": "Chef"
+                }
+            ]
+        }
+    ]
+
+    const inputConfigUpdate = [
+        {
+            "id": "emp-number",
+            "label": "Número de empleado",
+            "input__type": "number",
+            "style": {
+                "width": "12ch"
+            }
+        },
+        {
+            "id": "emp-name",
+            "label": "Nombre del empleado",
+            "input__type": "text"
+        },
+        {
+            "id": "emp-role",
+            "label": "Rol del empleado",
+            "input": true,
+            "input__type": "radio",
+            "radios__name": "employee-role",
+            "radios__buttons": [
+                {
+                    "id": "employee-role-employee",
+                    "label": "Empleado",
+                    "checked": true
+                },
+                {
+                    "id": "employee-role-chef",
+                    "label": "Chef"
+                }
+            ]
+        }
+    ]
+    // Configs
+    const configurationAdd = {
+        title: 'Registar nuevo empleado',
+        description: null, 
+        inputs: inputConfigAdd, 
+        confirmButtonText: 'Añadir', 
+        onSubmitAction: () => console.log('success')
+    }
+    
+    const configurationUpdate = {
+        title: 'Actualizar empleado',
+        description: null, 
+        inputs: inputConfigUpdate,
+        confirmButtonText: 'Actualizar', 
+        onSubmitAction: () => console.log('success')
+    }
 
     useEffect(() => {
         setEmployees(Users.filter(usr => usr.USER_ROLE === 'EMPLOYEE'));
         setChefs(Users.filter(usr => usr.USER_ROLE === 'CHEF'));
     }, []);
 
+    useEffect(() => {
+        if(formResponse){
+            resetFormResponse();
+            setTimeout((setShowForm(false), 500))
+        }
+    },[formResponse]);
+
     const onNewHandler = () => {
-        navigate('new');
+        setModalConfiguration(configurationAdd);
+        setShowForm(true);
+    }
+    const onUpdateHandler = () => {
+        setModalConfiguration(configurationUpdate);
+        setShowForm(true);
     }
     return (
         <main className="employees">
@@ -44,6 +145,7 @@ const Employees = () => {
                                     empName={emp.R_USER_NAME}
                                     empRole={emp.USER_ROLE}
                                     empDate={emp.CREATED_ON}
+                                    onClick={onUpdateHandler}
                                 />)
                     }
                 </tbody>
@@ -63,11 +165,12 @@ const Employees = () => {
                                     empName={chef.R_USER_NAME}
                                     empRole={chef.USER_ROLE}
                                     empDate={chef.CREATED_ON}
+                                    onClick={onUpdateHandler}
                                 />)
                     }
                 </tbody>
             </table>
-            <Outlet />
+            { modalConfiguration && showFormModal(modalConfiguration)}
         </main>
     )
 }

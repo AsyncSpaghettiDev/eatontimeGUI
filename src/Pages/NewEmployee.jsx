@@ -25,7 +25,7 @@ const NewEmployee = () => {
     const fakeCreate = e => {
         const name = e.target[0].value;
         // const role = e.target.elements['employee-role'].value;
-        console.log(name);
+        console.dir(e.target);
         e.preventDefault();
         setValidForm(fakeValidation(name));
     }

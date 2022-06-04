@@ -1,0 +1,154 @@
+import { useState, Fragment, useEffect } from 'react';
+import './styles/FormModal.css';
+
+const FormModal = ({
+    title,
+    description,
+    errorMessage,
+    autocomplete = 'off',
+    onDismiss,
+    onSelect,
+    confirmButtonText,
+    onSubmitAction,
+    inputs
+}) => {
+    const [validForm, setValidForm] = useState({
+        formValid: undefined,
+        formErrors: []
+    });
+    const [formData, setFormData] = useState({});
+
+    // useEffect
+    useEffect(() => {
+        let tags = {};
+        inputs.forEach(inp => tags = { ...tags, [inp.id]: inp.defaultValue ?? undefined });
+        setFormData(tags);
+    }, [inputs]);
+
+    useEffect(() => {
+        if (validForm.formValid !== undefined && !validForm.formValid)
+            setTimeout(() => setValidForm({ formValid: undefined }), 2500)
+
+        if (validForm.formValid !== undefined && validForm.formValid) {
+            // Here goes onValid trigger
+            if(onSubmitAction)
+                onSubmitAction();
+            onSelect(true);
+            console.log('onSelect prop triggered');
+        }
+    }, [validForm]);
+
+    // Handlers
+    const onSubmitHandler = e => {
+        e.preventDefault();
+        validateForm();
+    }
+
+    const validateForm = () => {
+        const errors = []
+        for (const iterator in formData) {
+            if (formData[iterator] === undefined || formData[iterator] === '')
+                errors.push(iterator);
+        }
+        setValidForm({ formValid: errors.length === 0, formErrors: errors });
+    }
+
+    const onResponseHandler = e => {
+        onSelect(e.target.value === 'true');
+        onDismiss();
+    }
+
+    const onDismissHandler = _ => {
+        onDismiss();
+    }
+
+    const onChangeInputHandler = e => {
+        const target = e.target;
+        const value =
+            target.type === 'checkbox' ? target.checked :
+                target.type === 'radio' ? target.id : target.value;
+        const name = target.name;
+
+        setFormData({ ...formData, [name]: value });
+    }
+
+    const propagationHandler = e => e.stopPropagation();
+
+    return (
+        <div
+            className="form__modal_container"
+            onClick={onDismissHandler}
+        >
+            <div
+                className='dialog'
+                role="dialog"
+                aria-labelledby="dialogTitle"
+                aria-describedby="dialogDesc"
+                onClick={propagationHandler}
+            >
+                <h2 className='dialog-title' id="dialogTitle"> {title} </h2>
+                <p className='dialog-desc' id="dialogDesc"> {description} </p>
+                <form
+                    className={validForm.formValid === undefined || validForm.formValid ? "dialog__form" : "dialog__form dialog__form--invalid"}
+                    autoComplete={autocomplete}
+                    onSubmit={onSubmitHandler}
+                >
+                    {
+                        inputs.map((inpt, i) =>
+                            <Fragment key={`temp${i + 1}`}>
+                                <label key={`label${i + 1}`} style={inpt.lbl__style} htmlFor={inpt.id}> {inpt.label} </label>
+                                {
+                                    inpt.input__type === 'radio' ?
+                                        <div key={`radioG${i + 1}`} className='dialog__form__row'>
+                                            {
+                                                inpt.radios__buttons.map((radio_btn, j) =>
+                                                    <Fragment key={`tempDiv${j + 1}`}>
+                                                        <label style={radio_btn.lbl__style} key={`lblDiv${j + 1}`} htmlFor={radio_btn.radios__name}>{radio_btn.label}</label>
+                                                        <input
+                                                            type='radio'
+                                                            name={inpt.id}
+                                                            id={radio_btn.id}
+                                                            style={radio_btn.style}
+                                                            key={radio_btn.id}
+                                                            className='dialog__form-input'
+                                                            onChange={onChangeInputHandler}
+                                                        />
+                                                    </Fragment>
+                                                )
+                                            }
+                                        </div> :
+                                        <input
+                                            defaultValue={inpt.defaultValue}
+                                            id={inpt.id}
+                                            key={inpt.id}
+                                            name={inpt.id}
+                                            style={inpt.style}
+                                            type={inpt.input__type}
+                                            pattern={inpt.input__type === 'number' ? '[0-9]*' : null}
+                                            className='dialog__form-input'
+                                            onChange={onChangeInputHandler} />
+                                            
+
+                                }
+                            </Fragment>
+                        )
+                    }
+
+                    {
+                        validForm.formValid !== undefined && !validForm.formValid &&
+                        <p className="dialog__form__exception">
+                            {errorMessage || 'Hubo un error, verifica los campos'}<br />{validForm.formErrors.join(',')}
+                        </p>
+                    }
+
+                    <div className="dialog-buttons">
+                        <button type="submit" value={true} className='dialog-btn dialog-confirm'> {confirmButtonText || `Aceptar`} </button>
+                        <button type='button' onClick={onResponseHandler} value={false} className='dialog-btn dialog-cancel'> Cancelar </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    )
+}
+
+export default FormModal;
