@@ -2,7 +2,6 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 
 // Components
-import FormModal from './Components/FormModal';
 import RequireAuth from './Components/RequireAuth.jsx';
 
 // Pages
@@ -24,14 +23,14 @@ const App = () => {
                 <Route path='/' element={<Home />} />
                 <Route path='/dashboard' element={<Dashboard />} >
                     <Route index element={
-                        <RequireAuth requiredRole='ADMIN'>
+                        <RequireAuth requiredRole={['ADMIN']}>
                             <TableDashboard />
                         </RequireAuth>
                     } />
                     <Route path=':tableID' element={<TableDetail />} />
                     <Route path='addPlate' element={<AddPlate />} />
                     <Route path='newTable' element={
-                        <RequireAuth requiredRole='ADMIN'>
+                        <RequireAuth requiredRole={['ADMIN', 'EMPLOYEE' ,'CHEF']}>
                             <RegisterTable />
                         </RequireAuth>
                     } />
@@ -40,52 +39,11 @@ const App = () => {
                 <Route path='/menu' element={<Menu />} />
                 <Route path='/login' element={<Login />} />
                 <Route path='/employees' element={
-                    <RequireAuth requiredRole='ADMIN'>
+                    <RequireAuth requiredRole={['ADMIN']}>
                         <Employees />
                     </RequireAuth>}
                 >
                 </Route>
-                <Route path='test' element={
-                    <FormModal
-                        title='Registrar nuevo empleado'
-                        errorMessage='Error en algún campo'
-                        inputs={
-                            [
-                                {
-                                    id: 'emp-number',
-                                    label: 'Número de empleado',
-                                    input__type: 'number',
-                                    style: { width: '12ch' },
-                                },
-                                {
-                                    id: 'emp-name',
-                                    defaultValue: 'hello',
-                                    label: 'Nombre del empleado',
-                                    input__type: 'text'
-                                },
-                                {
-                                    id: 'emp-role',
-                                    label: 'Rol del empleado',
-                                    input: true,
-                                    input__type: 'radio',
-                                    radios__name: 'employee-role',
-                                    radios__buttons: [
-                                        {
-                                            id: 'employee-role-employee',
-                                            label: 'Empleado',
-                                            checked: true
-                                        },
-                                        {
-                                            id: 'employee-role-chef',
-                                            label: 'Chef',
-                                            lbl__style: {marginInlineStart: '0.5em'}
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    />
-                } />
                 <Route path='*' element={<NotFound />} />
             </Routes>
         </BrowserRouter >

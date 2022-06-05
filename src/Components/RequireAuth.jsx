@@ -5,13 +5,20 @@ function RequireAuth({ children, requiredRole }) {
     let [cookies] = useCookies();
     let location = useLocation();
 
-    if (cookies.role === undefined)
+    const cookieRole = cookies.role;
+
+    const roleValid =
+        requiredRole instanceof Array ?
+            requiredRole.some(rqRole => rqRole === cookieRole ) :
+            cookieRole !== requiredRole;
+
+    if (cookieRole === undefined)
         return <Navigate to="/login" state={{ from: location }} replace />;
 
-    if (cookies.role === 'TABLE')
+    if (cookieRole === 'TABLE')
         return <Navigate to={`/dashboard/${cookies.name[5]}`} />
 
-    if (cookies.role !== requiredRole) {
+    if (!roleValid) {
         // Redirect them to the /login page, but save the current location they were
         // trying to go to when they were redirected. This allows us to send them
         // along to that page after they login, which is a nicer user experience
