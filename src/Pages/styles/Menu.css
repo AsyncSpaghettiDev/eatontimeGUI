@@ -26,3 +26,28 @@
     font-weight: var(--fw-bold);
     flex-basis: 100%;
 }
+
+/*
+    ----------------
+    New table styles
+    ----------------
+*/
+
+.menu__new{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    gap: 1em;
+}
+
+.menu__new .menu__new-add{
+    margin-block-end: -1em;
+    color: var(--bg-primary-800);
+    padding-inline: 2em;
+    padding-block: 0.5em;
+    border-radius: 2em;
+    border: 1px solid var(--bg-primary-800);
+    cursor: pointer;
+    font-size: var(--fs-special);
+    font-family: var(--ff-main);
+}

@@ -31,7 +31,7 @@ const FormModal = ({
 
         if (validForm.formValid !== undefined && validForm.formValid) {
             // Here goes onValid trigger
-            if(onSubmitAction)
+            if (onSubmitAction)
                 onSubmitAction();
             onSelect(true);
             console.log('onSelect prop triggered');
@@ -98,25 +98,59 @@ const FormModal = ({
                             <Fragment key={`temp${i + 1}`}>
                                 <label key={`label${i + 1}`} style={inpt.lbl__style} htmlFor={inpt.id}> {inpt.label} </label>
                                 {
-                                    inpt.input__type === 'radio' ?
-                                        <div key={`radioG${i + 1}`} className='dialog__form__row'>
-                                            {
-                                                inpt.radios__buttons.map((radio_btn, j) =>
-                                                    <Fragment key={`tempDiv${j + 1}`}>
-                                                        <label style={radio_btn.lbl__style} key={`lblDiv${j + 1}`} htmlFor={radio_btn.radios__name}>{radio_btn.label}</label>
-                                                        <input
-                                                            type='radio'
-                                                            name={inpt.id}
-                                                            id={radio_btn.id}
-                                                            style={radio_btn.style}
-                                                            key={radio_btn.id}
-                                                            className='dialog__form-input'
-                                                            onChange={onChangeInputHandler}
-                                                        />
-                                                    </Fragment>
-                                                )
-                                            }
-                                        </div> :
+                                    inpt.input ?
+                                        // In case we have input as true lets check if the multiple inputs are of radio
+                                        inpt.input__type === 'radio' ?
+                                            <div key={`radioG${i + 1}`} className='dialog__form__row'>
+                                                {
+                                                    inpt.radios__buttons.map((radio_btn, j) =>
+                                                        <Fragment key={`tempDiv${j + 1}`}>
+                                                            <label style={radio_btn.lbl__style} key={`lblDiv${j + 1}`} htmlFor={radio_btn.id}>{radio_btn.label}</label>
+                                                            <input
+                                                                type='radio'
+                                                                name={inpt.id}
+                                                                id={radio_btn.id}
+                                                                style={radio_btn.style}
+                                                                key={radio_btn.id}
+                                                                className='dialog__form-input'
+                                                                onChange={onChangeInputHandler}
+                                                            />
+                                                        </Fragment>
+                                                    )
+                                                }
+                                            </div>
+                                            :
+                                            // In case not lets see if its a select
+                                            inpt.input__type === 'select' ?
+                                                <select key={inpt.id} name={inpt.id} className='dialog__form-input' style={{paddingInline: '1em'}} >
+                                                    {
+                                                        inpt.options.map((opt, j) =>
+                                                            <option
+                                                                value={opt.value}
+                                                                id={opt.id}
+                                                                style={opt.style}
+                                                                key={`SelectT${opt.value + j}`}
+                                                                className='dialog__form-input'
+                                                                onChange={onChangeInputHandler}
+                                                            >
+                                                                {opt.value}
+                                                            </option>
+                                                        )
+                                                    }
+                                                </select>
+                                                // In case not lets return null
+                                                : <p>Error in input__type, please check your sintax</p>
+                                        :
+                                        inpt.input__type === 'textarea' ? 
+                                        <textarea
+                                            defaultValue={inpt.defaultValue}
+                                            id={inpt.id}
+                                            key={inpt.id}
+                                            name={inpt.id}
+                                            style={inpt.style}
+                                            className='dialog__form-input'
+                                            onChange={onChangeInputHandler} />
+                                        :
                                         <input
                                             defaultValue={inpt.defaultValue}
                                             id={inpt.id}
@@ -127,7 +161,7 @@ const FormModal = ({
                                             pattern={inpt.input__type === 'number' ? '[0-9]*' : null}
                                             className='dialog__form-input'
                                             onChange={onChangeInputHandler} />
-                                            
+
 
                                 }
                             </Fragment>

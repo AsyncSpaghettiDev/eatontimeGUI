@@ -51,3 +51,27 @@
     text-align: center;
     text-transform: capitalize;
 }
+
+/*
+    ----------------
+    New table styles
+    ----------------
+*/
+
+.dashboard__new{
+    display: flex;
+    justify-content: center;
+    margin-block-start: 1em;
+    text-align: center;
+}
+
+.dashboard__new .dashboard__new-add{
+    color: var(--bg-primary-800);
+    padding-inline: 2em;
+    padding-block: 0.5em;
+    border-radius: 2em;
+    border: 1px solid var(--bg-primary-800);
+    cursor: pointer;
+    font-size: var(--fs-special);
+    font-family: var(--ff-main);
+}

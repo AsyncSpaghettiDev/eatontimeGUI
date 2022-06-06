@@ -10,9 +10,10 @@ const useFormModal = () => {
 
     const unshowFormHandler = () => setShowForm(false);
 
-    const showFormModal = ({title, description, inputs, confirmButtonText, onSubmitAction}) => showForm ? <FormModal
+    const showFormModal = ({ title, description, errorMessage, inputs, confirmButtonText, onSubmitAction }) => showForm ? <FormModal
         title={title}
-        errorMessage={description}
+        description={description}
+        errorMessage={errorMessage}
         onDismiss={unshowFormHandler}
         onSelect={setFormResponse}
         confirmButtonText={confirmButtonText}

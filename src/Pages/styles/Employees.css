@@ -23,13 +23,14 @@
 }
 
 .employees .employees__add-new{
-    color: var(--clr-black);
+    color: var(--bg-primary-800);
     padding-inline: 2em;
     padding-block: 0.5em;
     border-radius: 2em;
     border: 1px solid var(--bg-primary-800);
     cursor: pointer;
     font-size: var(--fs-special);
+    font-family: var(--ff-main);
 }
 
 .employees .employees__list__headers,

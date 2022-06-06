@@ -23,7 +23,7 @@ const App = () => {
                 <Route path='/' element={<Home />} />
                 <Route path='/dashboard' element={<Dashboard />} >
                     <Route index element={
-                        <RequireAuth requiredRole={['ADMIN']}>
+                        <RequireAuth requiredRole={['ADMIN', 'EMPLOYEE']}>
                             <TableDashboard />
                         </RequireAuth>
                     } />
