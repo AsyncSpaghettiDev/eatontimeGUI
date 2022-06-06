@@ -74,6 +74,7 @@ const FormModal = ({
 
     const propagationHandler = e => e.stopPropagation();
 
+    // Render Section
     return (
         <div
             className="form__modal_container"
@@ -158,6 +159,7 @@ const FormModal = ({
                                             name={inpt.id}
                                             style={inpt.style}
                                             type={inpt.input__type}
+                                            min={inpt.input__type === 'number' ? 0 : null}
                                             pattern={inpt.input__type === 'number' ? '[0-9]*' : null}
                                             className='dialog__form-input'
                                             onChange={onChangeInputHandler} />

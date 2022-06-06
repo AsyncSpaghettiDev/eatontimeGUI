@@ -1,6 +1,7 @@
 // Resources
 import Login from '../Images/login.png';
 import MenuImage from '../Images/menu.png';
+import OrdersImage from '../Images/orders.png';
 import DashboardImage from '../Images/dashboard.svg';
 import EmployeesImage from '../Images/empleados.png';
 
@@ -36,6 +37,13 @@ const Home = () => {
                 <Link className='home__link' to='/employees'>
                     <img src={EmployeesImage} alt="" className="home__link-image" />
                     <p className="home__link-text">Empleados</p>
+                </Link>
+            }
+            {
+                (cookies.role === 'ADMIN' || cookies.role === 'CHEF') &&
+                <Link className='home__link' to='/orders'>
+                    <img src={OrdersImage} alt="" className="home__link-image" />
+                    <p className="home__link-text">Ordenes</p>
                 </Link>
             }
             <Link className='home__link home__link-last' to='/' ></Link>

@@ -8,6 +8,7 @@ import RequireAuth from './Components/RequireAuth.jsx';
 import Menu from './Pages/Menu.jsx';
 import Home from './Pages/Home.jsx';
 import Login from './Pages/Login.jsx';
+import Orders from './Pages/Orders.jsx';
 import NotFound from './Pages/NotFound.jsx';
 import AddPlate from './Pages/AddPlate.jsx';
 import Employees from './Pages/Employees.jsx';
@@ -30,7 +31,7 @@ const App = () => {
                     <Route path=':tableID' element={<TableDetail />} />
                     <Route path='addPlate' element={<AddPlate />} />
                     <Route path='newTable' element={
-                        <RequireAuth requiredRole={['ADMIN', 'EMPLOYEE' ,'CHEF']}>
+                        <RequireAuth requiredRole={['ADMIN', 'EMPLOYEE', 'CHEF']}>
                             <RegisterTable />
                         </RequireAuth>
                     } />
@@ -42,8 +43,12 @@ const App = () => {
                     <RequireAuth requiredRole={['ADMIN']}>
                         <Employees />
                     </RequireAuth>}
-                >
-                </Route>
+                />
+                <Route path='/orders' element={
+                    <RequireAuth requiredRole={['ADMIN','CHEF']}>
+                        <Orders />
+                    </RequireAuth>}
+                />
                 <Route path='*' element={<NotFound />} />
             </Routes>
         </BrowserRouter >
