@@ -1,3 +1,7 @@
+// Imports
+import { useEffect, useState } from 'react';
+import { useCookies } from 'react-cookie';
+
 // Styles
 import './styles/TableDashboard.css';
 
@@ -8,14 +12,14 @@ import HeroImage from '../Images/hero.svg';
 import TableResume from '../Components/TableResume.jsx';
 import Transition from '../Components/Transition.jsx';
 
-// Imports
-import { useEffect, useState } from 'react';
-import { useCookies } from 'react-cookie';
+// Custom Hooks
 import useFormModal from '../CustomHooks/useFormModal';
 
 const TableDashboard = () => {
     // Hooks
     const [tables, setTables] = useState([]);
+    const [selectedTable, setSelectedTable] = useState(null);
+    const [editMode, setEditMode] = useState(false); 
     const { showFormModal, setShowForm, formResponse, resetFormResponse } = useFormModal();
     const [modalConfiguration, setModalConfiguration] = useState(undefined);
     const [cookies] = useCookies(['role']);
@@ -90,24 +94,91 @@ const TableDashboard = () => {
         }
     }, [formResponse]);
 
+    useEffect(() => {
+        if (selectedTable !== null) {
+
+            const inputConfigUpdate = [
+                {
+                    "id": "table-number",
+                    "label": "Número de mesa",
+                    "input__type": "number",
+                    "style": {
+                        "width": "12ch"
+                    },
+                    "defaultValue": selectedTable.tableNo
+                },
+                {
+                    "id": "table-capacity",
+                    "label": "Capacidad de la mesa",
+                    "input__type": "number",
+                    "style": {
+                        "width": "12ch"
+                    },
+                    "defaultValue": selectedTable.freeSeat
+                },
+                {
+                    "id": "table-status",
+                    "label": "Estado de la mesa",
+                    "input": true,
+                    "input__type": "radio",
+                    "radios__name": "table-status-actual",
+                    "radios__buttons": [
+                        {
+                            "id": "table-status-free",
+                            "label": "Disponible",
+                            "checked": selectedTable.status === "libre"
+                        },
+                        {
+                            "id": "table-status-busy",
+                            "label": "Ocupada",
+                            "checked": selectedTable.status === "ocupada"
+                        }
+                    ]
+                }
+            ]
+
+            const configurationUpdate = {
+
+                title: 'Actualizar mesa',
+                description: 'Actualizar mesa del restaurant',
+                inputs: inputConfigUpdate,
+                confirmButtonText: 'Actualizar',
+                onSubmitAction: () => console.log('user updated')
+            }
+            setModalConfiguration(configurationUpdate);
+            setShowForm(true);
+            setSelectedTable(null);
+        }
+    }, [selectedTable]);
+    // Handlers
+
     const onNewHandler = () => {
         setModalConfiguration(configurationAdd);
         setShowForm(true);
+    }
+
+    const onToggleEditMode = () => {
+        setEditMode(!editMode);
+    }
+
+    const onUpdateHandler = (tblNo) => {
+        setSelectedTable(tables.find(tbl => tbl.tableNo === tblNo));
     }
 
     // Render Section
     return (
         <section className="table__dashboard">
             <Transition duration='0s' />
-
+|
             <div className="dashboard__hero">
                 <img className="dashboard__hero-img" src={HeroImage} alt="dashboard logo" />
-                <h2 className="dashboard__hero-title">Mesas</h2>
+                <h2 className="dashboard__hero-title">Mesas {editMode && "(Edit Mode)"} </h2>
             </div>
             {
                 cookies.role === 'ADMIN' &&
                 <div className="dashboard__new">
                     <button className="dashboard__new-add" onClick={onNewHandler}>Agregar Mesa</button>
+                    <button className="dashboard__new-add" onClick={onToggleEditMode}>Alternar modo editar</button>
                 </div>
             }
             <table className="dashboard__resume">
@@ -119,7 +190,7 @@ const TableDashboard = () => {
                         <th>Est.Time</th>
                     </tr>
                     {
-                        tables.map(table => <TableResume key={table.tableNo} data={table} busy={table.status === 'ocupada'} />)
+                        tables.map(table => <TableResume editingMode={editMode} onClick={onUpdateHandler} key={table.tableNo} data={table} busy={table.status === 'ocupada'} />)
                     }
                 </tbody>
             </table>

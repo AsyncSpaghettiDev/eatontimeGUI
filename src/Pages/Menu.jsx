@@ -1,25 +1,26 @@
-// Data
-// import FullMenu from "../Data/menu.json";
-import PizzasMenu from '../Data/pizzas.json';
-import DessertsMenu from '../Data/desserts.json';
-
 // Imports
 import { useEffect, useState } from "react";
 import { useCookies } from 'react-cookie';
 import useFormModal from '../CustomHooks/useFormModal';
+
+// Data
+import FullMenu from "../Data/menu.json";
+import PizzasMenu from '../Data/pizzas.json';
+import DessertsMenu from '../Data/desserts.json';
+
+// Styles
+import "./styles/Menu.css";
 
 // Components
 import NavBar from '../Components/NavBar.jsx';
 import MenuPlate from '../Components/MenuPlate.jsx';
 import Transition from '../Components/Transition.jsx';
 
-// Styles
-import "./styles/Menu.css";
-
 const Menu = () => {
     // Hooks
     const [pizzas, setPizzas] = useState([]);
     const [desserts, setDesserts] = useState([]);
+    const [selectedPlate, setSelectedPlate] = useState(null);
     const { showFormModal, setShowForm, formResponse, resetFormResponse } = useFormModal();
     const [modalConfiguration, setModalConfiguration] = useState(undefined);
     const [cookies] = useCookies(['role']);
@@ -55,13 +56,11 @@ const Menu = () => {
             "radios__name": "table-status-actual",
             "options": [
                 {
-                    "value": "table-status-free",
-                    "label": "Disponible",
+                    "value": "Pizzas",
                     "checked": true
                 },
                 {
-                    "value": "table-status-busy",
-                    "label": "Ocupada"
+                    "value": "Postres"
                 }
             ]
         }
@@ -113,6 +112,70 @@ const Menu = () => {
         }
     }, [formResponse]);
 
+    useEffect(() => {
+        if (selectedPlate !== null) {
+
+            const inputConfigUpdate = [
+                {
+                    "id": "plate-description",
+                    "label": "Descripción del platillo",
+                    "input__type": "textarea",
+                    "style": {
+                        "height": "4em",
+                        "resize": "none",
+                        "width" : "clamp(100px, 60%, 250px)"
+                    },
+                    "defaultValue": selectedPlate.description
+                },
+                {
+                    "id": "plate-price",
+                    "label": "Precio del platillo (en MXN)",
+                    "input__type": "number",
+                    "style": {
+                        "width": "12ch"
+                    },
+                    "defaultValue": selectedPlate.price
+                },
+                {
+                    "id": "plate-type",
+                    "label": "Tipo de platillo",
+                    "input": true,
+                    "input__type": "select",
+                    "style": {
+                        "width": "12ch"
+                    },
+                    "radios__name": "table-status-actual",
+                    "options": [
+                        {
+                            "value": "Selecciona un tipo",
+                            "hidden": true
+                        },
+                        {
+                            "value": "Pizzas",
+                            "checked": true
+                        },
+                        {
+                            "value": "Postres"
+                        }
+                    ]
+                }
+            ];
+
+            const configurationUpdate = {
+                title: 'Actualizar platillo',
+                description: null,
+                inputs: inputConfigUpdate,
+                confirmButtonText: 'Actualizar',
+                onSubmitAction: () => console.log('plate updated')
+            }
+            setModalConfiguration(configurationUpdate);
+            setShowForm(true);
+            setSelectedPlate(null);
+        }
+    }, [selectedPlate]);
+
+    // Handlers
+
     const onNewPlateHandler = () => {
         setModalConfiguration(configurationAddPlate);
         setShowForm(true);
@@ -121,6 +184,10 @@ const Menu = () => {
     const onNewMenuHandler = () => {
         setModalConfiguration(configurationAddMenu);
         setShowForm(true);
+    }
+    
+    const onUpdateHandler = (plateID) => {
+        setSelectedPlate(FullMenu.find(plt => plt.id === plateID));
     }
 
     // Render Section
@@ -141,9 +208,11 @@ const Menu = () => {
                     pizza =>
                         <MenuPlate
                             key={pizza.id}
+                            id={pizza.id}
                             img={pizza.img}
                             name={pizza.name}
                             description={pizza.description}
+                            onClick={onUpdateHandler}
                         />)
                 }
                 <p className="plates-title">Postres</p>
@@ -151,9 +220,11 @@ const Menu = () => {
                     dessert =>
                         <MenuPlate
                             key={dessert.id}
+                            id={dessert.id}
                             img={dessert.img}
                             name={dessert.name}
                             description={dessert.description}
+                            onClick={onUpdateHandler}
                         />)
                 }
             </div>

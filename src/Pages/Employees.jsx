@@ -13,6 +13,7 @@ const Employees = () => {
     // Hooks
     const [employees, setEmployees] = useState([]);
     const [chefs, setChefs] = useState([]);
+    const [selectedEmployee, setSelectedEmployee] = useState(null);
     const { showFormModal, setShowForm, formResponse, resetFormResponse } = useFormModal();
     const [modalConfiguration, setModalConfiguration] = useState(undefined);
 
@@ -51,75 +52,90 @@ const Employees = () => {
         }
     ]
 
-    const inputConfigUpdate = [
-        {
-            "id": "emp-number",
-            "label": "Número de empleado",
-            "input__type": "number",
-            "style": {
-                "width": "12ch"
-            }
-        },
-        {
-            "id": "emp-name",
-            "label": "Nombre del empleado",
-            "input__type": "text"
-        },
-        {
-            "id": "emp-role",
-            "label": "Rol del empleado",
-            "input": true,
-            "input__type": "radio",
-            "radios__name": "employee-role",
-            "radios__buttons": [
-                {
-                    "id": "employee-role-employee",
-                    "label": "Empleado",
-                    "checked": true
-                },
-                {
-                    "id": "employee-role-chef",
-                    "label": "Chef"
-                }
-            ]
-        }
-    ]
     // Configs
     const configurationAdd = {
         title: 'Registar nuevo empleado',
-        description: null, 
-        inputs: inputConfigAdd, 
-        confirmButtonText: 'Añadir', 
-        onSubmitAction: () => console.log('success')
-    }
-    
-    const configurationUpdate = {
-        title: 'Actualizar empleado',
-        description: null, 
-        inputs: inputConfigUpdate,
-        confirmButtonText: 'Actualizar', 
+        description: null,
+        inputs: inputConfigAdd,
+        confirmButtonText: 'Añadir',
         onSubmitAction: () => console.log('success')
     }
 
+    // useEffects
     useEffect(() => {
         setEmployees(Users.filter(usr => usr.USER_ROLE === 'EMPLOYEE'));
         setChefs(Users.filter(usr => usr.USER_ROLE === 'CHEF'));
     }, []);
 
     useEffect(() => {
-        if(formResponse){
+        if (formResponse) {
             resetFormResponse();
             setTimeout((setShowForm(false), 500))
         }
-    },[formResponse]);
+    }, [formResponse]);
+
+    useEffect(() => {
+        if (selectedEmployee !== null) {
+
+            const inputConfigUpdate = [
+                {
+                    "id": "emp-number",
+                    "label": "Número de empleado",
+                    "input__type": "number",
+                    "style": {
+                        "width": "12ch"
+                    },
+                    "defaultValue": selectedEmployee.R_USER_ID
+                },
+                {
+                    "id": "emp-name",
+                    "label": "Nombre del empleado",
+                    "input__type": "text",
+                    "defaultValue": selectedEmployee.R_USER_NAME
+                },
+                {
+                    "id": "emp-role",
+                    "label": "Rol del empleado",
+                    "input": true,
+                    "input__type": "radio",
+                    "radios__name": "employee-role",
+                    "radios__buttons": [
+                        {
+                            "id": "employee-role-employee",
+                            "label": "Empleado",
+                            "checked": selectedEmployee.USER_ROLE === "EMPLOYEE"
+                        },
+                        {
+                            "id": "employee-role-chef",
+                            "label": "Chef",
+                            "checked": selectedEmployee.USER_ROLE === "CHEF"
+                        }
+                    ]
+                }
+            ];
+
+            const configurationUpdate = {
+                title: 'Actualizar empleado',
+                description: null,
+                inputs: inputConfigUpdate,
+                confirmButtonText: 'Actualizar',
+                onSubmitAction: () => console.log('user updated')
+            }
+            setModalConfiguration(configurationUpdate);
+            setShowForm(true);
+            setSelectedEmployee(null);
+        }
+    }, [selectedEmployee]);
+
+    // Handlers
 
     const onNewHandler = () => {
         setModalConfiguration(configurationAdd);
         setShowForm(true);
     }
-    const onUpdateHandler = () => {
-        setModalConfiguration(configurationUpdate);
-        setShowForm(true);
+    
+    const onUpdateHandler = (empID) => {
+        setSelectedEmployee(Users.find(usr => usr.R_USER_ID === empID));
     }
     return (
         <main className="employees">
@@ -170,7 +186,7 @@ const Employees = () => {
                     }
                 </tbody>
             </table>
-            { modalConfiguration && showFormModal(modalConfiguration)}
+            {modalConfiguration && showFormModal(modalConfiguration)}
         </main>
     )
 }

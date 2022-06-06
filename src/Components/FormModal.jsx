@@ -108,6 +108,7 @@ const FormModal = ({
                                                         <Fragment key={`tempDiv${j + 1}`}>
                                                             <label style={radio_btn.lbl__style} key={`lblDiv${j + 1}`} htmlFor={radio_btn.id}>{radio_btn.label}</label>
                                                             <input
+                                                                /* defaultChecked={radio_btn.checked} */
                                                                 type='radio'
                                                                 name={inpt.id}
                                                                 id={radio_btn.id}
@@ -127,6 +128,7 @@ const FormModal = ({
                                                     {
                                                         inpt.options.map((opt, j) =>
                                                             <option
+                                                                hidden={opt.hidden}
                                                                 value={opt.value}
                                                                 id={opt.id}
                                                                 style={opt.style}

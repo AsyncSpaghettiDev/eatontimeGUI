@@ -3,10 +3,14 @@ import './styles/MenuPlate.css';
 
 // Components
 
-const MenuPlate = ({ img, name, description }) => {
+const MenuPlate = ({ id, img, name, description, onClick }) => {
+    // Handlers
+    const onClickHandler = () => {
+        onClick(id);
+    }
     return (
         <div className="menu__plate__detail"
-        //onClick={() => alert('Details')}
+        onClick={onClickHandler}
         >
             <img className='plate-image' src={img} alt="plate" />
             <h3 className="plate-name"> {name} </h3>
