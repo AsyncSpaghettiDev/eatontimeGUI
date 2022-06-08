@@ -1,9 +1,13 @@
+// Style
 import './styles/PlateDetail.css';
 
 const PlateDetail = ({ id, img, name, price, quantity, onClick }) => {
+    // Handlers
     const onClickHandler = () => {
         onClick({id});
     }
+
+    // Render section
     return (
         <div className="plate__detail" >
             <img className='plate-image' src={img} alt="plate" />

@@ -1,10 +1,13 @@
+// Imports
 import { useCookies } from "react-cookie";
 import { Navigate, useLocation } from "react-router-dom";
 
-function RequireAuth({ children, requiredRole }) {
+const RequireAuth = ({ children, requiredRole }) => {
+    // Hooks
     let [cookies] = useCookies();
     let location = useLocation();
 
+    // Const values
     const cookieRole = cookies.role;
 
     const roleValid =
@@ -12,20 +15,18 @@ function RequireAuth({ children, requiredRole }) {
             requiredRole.some(rqRole => rqRole === cookieRole ) :
             cookieRole !== requiredRole;
 
+    // Conditional render section
+    // If we havent a session yet, returns to login page
     if (cookieRole === undefined)
         return <Navigate to="/login" state={{ from: location }} replace />;
-
+    // In case session role is TABLE we were send to that table detail
     if (cookieRole === 'TABLE')
-        return <Navigate to={`/dashboard/${cookies.name[5]}`} />
-
+        return <Navigate to={`/dashboard/details/${cookies.name[5]}`} />
+    // If we are any role not valid we were send to home
     if (!roleValid) {
-        // Redirect them to the /login page, but save the current location they were
-        // trying to go to when they were redirected. This allows us to send them
-        // along to that page after they login, which is a nicer user experience
-        // than dropping them off on the home page.
         return <Navigate to="/" replace />;
     }
-
+    // Else we render the component
     return children;
 }
 

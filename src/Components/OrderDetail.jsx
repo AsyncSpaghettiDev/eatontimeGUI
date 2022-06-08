@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+// Styles
 import './styles/OrderDetail.css';
 
 const OrderDetail = ({
@@ -14,6 +14,8 @@ const OrderDetail = ({
         onSelect(productid)
         onShow(true);
     }
+
+    // Render section
     return (
         <div className="order__detail" onClick={showConfirmHandler}>
             <p className="order__detail-productID"> ProductID: {productid} </p>

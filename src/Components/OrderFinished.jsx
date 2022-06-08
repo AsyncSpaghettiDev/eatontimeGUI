@@ -1,5 +1,7 @@
+// Styles
 import './styles/OrderFinished.css';
 
+// Resources
 import CheckImg from '../Images/check.svg';
 
 const OrderFinished = ({
@@ -23,6 +25,8 @@ const OrderFinished = ({
         onTriggerStep({ one: 1, two: 0, three: 0, four: -1 });
         reset();
     }
+
+    // Render Section
     return (
         <div className="order-finished">
             <img className='order-img' src={CheckImg} alt="order completed successfully" />

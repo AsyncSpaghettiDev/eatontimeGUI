@@ -1,11 +1,17 @@
+// Style
 import './styles/Login.css';
 
+// Resources
 import EOTLogo from '../Images/logo.png';
 
+// Data
 import Users from '../Data/users.json';
 
+// Components
 import NavBar from "../Components/NavBar";
 import Transition from '../Components/Transition';
+
+// Imports
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import { useEffect, useState } from 'react';
@@ -21,8 +27,11 @@ const Login = () => {
 
     // UseEffect
     useEffect(() => {
+        // Deprecated validation
         if (searchParams.get('user') != null)
             console.log(searchParams.get('user'));
+        // On load checks if it was redirect, if yes after login will redirect to that section
+        // Else redirects to home
         setFrom(location.state?.from?.pathname || "/");
     }, []);
 
@@ -59,6 +68,8 @@ const Login = () => {
         setValidForm(false);
         return [false, null, null];
     }
+
+    // Render section
     return (
         <main className="login">
             <NavBar />
@@ -77,7 +88,7 @@ const Login = () => {
                 }
                 <input className="login__form-submit" type="submit" value="Ingresar" />
             </form>
-            <Transition duration='0s' />
+            <Transition duration='1s' />
         </main>
     )
 }

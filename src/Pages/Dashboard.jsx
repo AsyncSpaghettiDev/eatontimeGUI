@@ -8,6 +8,7 @@ import NavBar from '../Components/NavBar.jsx';
 import { Outlet } from 'react-router-dom';
 
 const Dashboard = () => {
+    // Render Section
     return (
         <main className="dashboard">
             <NavBar noBack />

@@ -12,6 +12,7 @@ import MenuOrderPlate from '../Components/MenuOrderPlate.jsx';
 // Styles
 import "./styles/MenuPreview.css";
 
+// View while we are making an order
 const MenuPreview = ({ onTriggerStep, onSelectedPlate}) => {
     // Hooks
     const [pizzas, setPizzas] = useState([]);
@@ -22,12 +23,15 @@ const MenuPreview = ({ onTriggerStep, onSelectedPlate}) => {
         setPizzas(PizzasMenu);
         setDesserts(DessertsMenu);
     }, []);
+
+    // Handlers
     
     const showConfirmHandler = (selectedId) => {
         onSelectedPlate(FullMenu.find(plate => plate.id === selectedId));
         onTriggerStep({ one: -1, two: 1, three: 0, four: 0 });
     }
 
+    // Render Section
     return (
         <div className="menu__preview">
             <h1 className="menu__title">EatOnTime Menu</h1>

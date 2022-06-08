@@ -9,12 +9,12 @@ import Menu from './Pages/Menu.jsx';
 import Home from './Pages/Home.jsx';
 import Login from './Pages/Login.jsx';
 import Orders from './Pages/Orders.jsx';
+import Creators from './Pages/Creators.jsx';
 import NotFound from './Pages/NotFound.jsx';
 import AddPlate from './Pages/AddPlate.jsx';
 import Employees from './Pages/Employees.jsx';
 import Dashboard from './Pages/Dashboard.jsx';
 import TableDetail from './Pages/TableDetail.jsx';
-import RegisterTable from './Pages/RegisterTable.jsx';
 import TableDashboard from './Pages/TableDashboard.jsx';
 
 const App = () => {
@@ -28,14 +28,8 @@ const App = () => {
                             <TableDashboard />
                         </RequireAuth>
                     } />
-                    <Route path=':tableID' element={<TableDetail />} />
+                    <Route path='details/:tableID' element={<TableDetail />} />
                     <Route path='addPlate' element={<AddPlate />} />
-                    <Route path='newTable' element={
-                        <RequireAuth requiredRole={['ADMIN', 'EMPLOYEE', 'CHEF']}>
-                            <RegisterTable />
-                        </RequireAuth>
-                    } />
-
                 </Route>
                 <Route path='/menu' element={<Menu />} />
                 <Route path='/login' element={<Login />} />
@@ -49,6 +43,7 @@ const App = () => {
                         <Orders />
                     </RequireAuth>}
                 />
+                <Route path='/about' element={<Creators />} />
                 <Route path='*' element={<NotFound />} />
             </Routes>
         </BrowserRouter >

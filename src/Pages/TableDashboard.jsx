@@ -9,8 +9,8 @@ import './styles/TableDashboard.css';
 import HeroImage from '../Images/hero.svg';
 
 // Components
-import TableResume from '../Components/TableResume.jsx';
 import Transition from '../Components/Transition.jsx';
+import TableResume from '../Components/TableResume.jsx';
 
 // Custom Hooks
 import useFormModal from '../CustomHooks/useFormModal';
@@ -138,7 +138,6 @@ const TableDashboard = () => {
             ]
 
             const configurationUpdate = {
-
                 title: 'Actualizar mesa',
                 description: 'Actualizar mesa del restaurant',
                 inputs: inputConfigUpdate,
@@ -150,8 +149,8 @@ const TableDashboard = () => {
             setSelectedTable(null);
         }
     }, [selectedTable]);
-    // Handlers
 
+    // Handlers
     const onNewHandler = () => {
         setModalConfiguration(configurationAdd);
         setShowForm(true);
@@ -168,7 +167,7 @@ const TableDashboard = () => {
     // Render Section
     return (
         <section className="table__dashboard">
-            <Transition duration='0s' />
+            <Transition duration='2s' />
 |
             <div className="dashboard__hero">
                 <img className="dashboard__hero-img" src={HeroImage} alt="dashboard logo" />

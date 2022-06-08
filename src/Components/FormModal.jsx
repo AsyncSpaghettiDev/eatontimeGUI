@@ -1,4 +1,7 @@
+// Imports
 import { useState, Fragment, useEffect } from 'react';
+
+// Styles
 import './styles/FormModal.css';
 
 const FormModal = ({
@@ -12,19 +15,25 @@ const FormModal = ({
     onSubmitAction,
     inputs
 }) => {
+    // Hooks
+    // State for valid form and form errors
     const [validForm, setValidForm] = useState({
         formValid: undefined,
         formErrors: []
     });
+    // Form data
     const [formData, setFormData] = useState({});
 
     // useEffect
+    // Set default values if needed, if not values set to undefined
     useEffect(() => {
         let tags = {};
         inputs.forEach(inp => tags = { ...tags, [inp.id]: inp.defaultValue ?? undefined });
         setFormData(tags);
     }, [inputs]);
 
+    // After validate form checks if its valid, if not show errors for 2.5s
+    // Else triggers onSubmitAction()
     useEffect(() => {
         if (validForm.formValid !== undefined && !validForm.formValid)
             setTimeout(() => setValidForm({ formValid: undefined }), 2500)
@@ -44,6 +53,10 @@ const FormModal = ({
         validateForm();
     }
 
+    /*
+    *   Validate function
+    */
+    // Validates if any form value is undefined or string empty
     const validateForm = () => {
         const errors = []
         for (const iterator in formData) {
@@ -52,12 +65,12 @@ const FormModal = ({
         }
         setValidForm({ formValid: errors.length === 0, formErrors: errors });
     }
-
+    
     const onResponseHandler = e => {
         onSelect(e.target.value === 'true');
         onDismiss();
     }
-
+    
     const onDismissHandler = _ => {
         onDismiss();
     }

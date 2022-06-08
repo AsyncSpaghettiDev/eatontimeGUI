@@ -115,6 +115,7 @@ const Menu = () => {
         }
     }, [formResponse, resetFormResponse, setShowForm]);
 
+    // Validates if current mode is editing or linking
     useEffect(() => {
         if (selectedPlate !== null && !linkMode) {
 
@@ -201,6 +202,7 @@ const Menu = () => {
             setSelectedPlate(FullMenu.find(plt => plt.id === plateID));
     }
 
+    // Functions
     const toggleLinkModal = () => {
         setShowLinkPlates(false);
         setSelectedPlate(null);
@@ -248,7 +250,7 @@ const Menu = () => {
 
             {modalConfiguration && showFormModal(modalConfiguration)}
             {showLinkPlates && <LinkPlateModal onDismiss={toggleLinkModal} data={selectedPlate} />}
-            <Transition duration='500ms' />
+            <Transition duration='250ms' />
         </main>
     )
 }

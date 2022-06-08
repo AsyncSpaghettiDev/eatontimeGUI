@@ -1,8 +1,7 @@
+// Styles
 import './styles/ConfirmModal.css';
 
 const ConfirmModal = ({title , description, onDismiss, onSelect}) => {
-    // Hooks
-
     // Handlers
     const dismissHandler = () => {
         onDismiss();

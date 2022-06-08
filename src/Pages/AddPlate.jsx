@@ -1,3 +1,4 @@
+// Styles
 import './styles/AddPlate.css';
 
 // Components
@@ -31,6 +32,7 @@ const AddPlate = () => {
         setStep({ one: 1, two: 0, three: 0, four: 0 });
     }, [state, navigate]);
 
+    // Scroll to top when step one is going to disappear
     useEffect(() => {
         if (step.one === -1) window.scroll({ top: 0, left: 0, behavior: 'smooth' })
     }, [step]);
@@ -39,16 +41,36 @@ const AddPlate = () => {
     const setQuantity = (value) => {
         setCurrentPlate({ ...currentPlate, quantity: value });
     }
+
+    // Render section
     return (
         <section className="add_plate">
             <h2 className="order-title">{`Orden de la mesa #${table}`}</h2>
             <form onSubmit={(e) => e.preventDefault()} className="order">
+                {
+                    /**
+                     * --------
+                     * Step One
+                     * --------
+                     * 
+                     * Show Menu
+                     */
+                }
                 <article className={step.one ? step.one === -1 ? 'step fade' : 'step active' : 'step'} >
                     <MenuPreview
                         onTriggerStep={setStep}
                         onSelectedPlate={setCurrentPlate}
                     />
                 </article>
+                {
+                    /**
+                     * --------
+                     * Step Two
+                     * --------
+                     * 
+                     * Customize selected plate from previous step
+                     */
+                }
                 <article className={step.two ? step.two === -1 ? 'step fade' : 'step active' : 'step'}>
                     {currentPlate !== undefined ? <CustomizePlate
                         id={currentPlate.id}
@@ -68,12 +90,30 @@ const AddPlate = () => {
                         greaterOne={greaterOne}
                     /> : null}
                 </article>
+                {
+                    /**
+                     * ----------
+                     * Step Three
+                     * ----------
+                     * 
+                     * Fake form request with delay
+                     */
+                }
                 <article className={step.three ? step.three === -1 ? 'step fade' : 'step active' : 'step'}>
                     <OrderLoader
                         onFocus={step.three === 1}
                         onTriggerStep={setStep}
                     />
                 </article>
+                {
+                    /**
+                     * ---------
+                     * Step Four
+                     * ---------
+                     * 
+                     * Order completed details
+                     */
+                }
                 <article className={step.four ? step.four === -1 ? 'step fade' : 'step active' : 'step'}>
                     {currentPlate !== undefined ? <OrderFinished
                         name={currentPlate.name}
@@ -87,7 +127,7 @@ const AddPlate = () => {
 
             </form>
             {showModal(currentPlate !== undefined ? `¿Desea ordenar ${currentPlate.name}?` : "Contact support for help")}
-            <Transition duration='0s' />
+            <Transition duration='1s' />
         </section>
     )
 }

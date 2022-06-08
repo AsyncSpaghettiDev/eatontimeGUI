@@ -1,9 +1,15 @@
+// Styles
 import './styles/Employees.css';
 
+// Components
 import NavBar from '../Components/NavBar.jsx';
-import EmployeeResume from '../Components/EmployeeResume'
+import Transition from '../Components/Transition.jsx';
+import EmployeeResume from '../Components/EmployeeResume.jsx'
 
+// Data
 import Users from '../Data/users.json';
+
+// Imports
 import { useEffect, useState } from 'react';
 
 // Custom Hooks
@@ -137,6 +143,8 @@ const Employees = () => {
     const onUpdateHandler = (empID) => {
         setSelectedEmployee(Users.find(usr => usr.R_USER_ID === empID));
     }
+
+    // Render section
     return (
         <main className="employees">
             <NavBar noBack />
@@ -187,6 +195,7 @@ const Employees = () => {
                 </tbody>
             </table>
             {modalConfiguration && showFormModal(modalConfiguration)}
+            <Transition duration='1s' />
         </main>
     )
 }

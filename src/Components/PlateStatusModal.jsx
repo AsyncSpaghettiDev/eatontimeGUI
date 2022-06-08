@@ -1,3 +1,4 @@
+// Style
 import './styles/PlateStatusModal.css';
 
 const PlateStatusModal = ({ origin, data, time, status, onDismiss }) => {
@@ -6,6 +7,8 @@ const PlateStatusModal = ({ origin, data, time, status, onDismiss }) => {
         onDismiss();
     }
     const propagationHandler = e => e.stopPropagation();
+
+    // Render section
     return (
         <div className="dialog__container" onClick={dismissHandler}>
             <div onClick={propagationHandler} className='dialog' role="dialog" aria-labelledby="dialogTitle" aria-describedby="dialogDesc">

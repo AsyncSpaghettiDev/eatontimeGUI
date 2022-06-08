@@ -1,7 +1,7 @@
+// Styles
 import './styles/LinkPlateModal.css';
 
 const LinkPlateModal = ({ onDismiss, data }) => {
-    // Hooks
 
     // Handlers
     const dismissHandler = () => {
@@ -9,7 +9,7 @@ const LinkPlateModal = ({ onDismiss, data }) => {
     }
 
     const responseHandler = () => {
-        //
+        // Change to update action
         console.log('Form submited');
         onDismiss();
     }
@@ -20,6 +20,8 @@ const LinkPlateModal = ({ onDismiss, data }) => {
     }
 
     const propagationHandler = e => e.stopPropagation();
+
+    // Render section
     return (
         <div className="dialog__container" onClick={dismissHandler}>
             <div onClick={propagationHandler} className='dialog' role="dialog" aria-labelledby="dialogTitle" aria-describedby="dialogDesc">

@@ -1,6 +1,8 @@
-import './styles/CustomizePlate.css';
-
+// Imports
 import { useEffect } from 'react';
+
+// Styles
+import './styles/CustomizePlate.css';
 
 const CustomizePlate = (
     {
@@ -13,13 +15,14 @@ const CustomizePlate = (
         onTriggerStep,
         resetModal,
         onQuantity,
-        counter, 
-        increase, 
-        decrease, 
-        reset, 
+        counter,
+        increase,
+        decrease,
+        reset,
         greaterOne
     }) => {
 
+    // useEffects
     useEffect(() => {
         if (confirmStatus) {
             confirmTrigger();
@@ -47,6 +50,8 @@ const CustomizePlate = (
         onTriggerStep({ one: 1, two: -1, three: 0, four: 0 });
         reset();
     }
+
+    // Render Section
     return (
         <div className="customize__plate">
             <img className='plate-image' src={img} alt="plate" />

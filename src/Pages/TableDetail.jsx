@@ -10,7 +10,7 @@ import FullMenu from "../Data/menu.json";
 import Stopwatch from '../Components/Stopwatch.jsx';
 import Transition from '../Components/Transition.jsx';
 import PlateDetail from '../Components/PlateDetail.jsx';
-import PlateStatusModal from '../Components/PlateStatusModal';
+import PlateStatusModal from '../Components/PlateStatusModal.jsx';
 
 // Custom hooks
 import useConfirmModal from '../CustomHooks/useConfirmModal';
@@ -77,10 +77,10 @@ const TableDetail = () => {
             }
         });
     }
-    // Component
+    // Render section
     return (
         <main className="table__detail">
-            <Transition duration='0s' />
+            <Transition duration='1.5s' />
             <div className="table__hero">
                 <img className="table__hero-img" src={HeroImage} alt="dashboard logo" />
                 <h2 className="table__hero-title">{`Table No: ${tableID}`}</h2>

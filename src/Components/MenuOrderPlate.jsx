@@ -1,16 +1,16 @@
 // Styles
 import './styles/MenuOrderPlate.css';
 
-// Components
-
 const MenuOrderPlate = ({ id, img, name, price, description, onAsk }) => {
-
+    // Handlers
+    // Fake delay to make it more realistic
     const handlerAsk = () => {
         setTimeout(() => {
             onAsk(id);
         }, 250)
     }
 
+    // Render Section
     return (
         <div className="menu__order__plate__detail" onClick={handlerAsk}>
             <img className='plate-image' src={img} alt="plate" />

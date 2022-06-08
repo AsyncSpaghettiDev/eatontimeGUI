@@ -1,8 +1,11 @@
+// Imports
 import { useEffect, useState } from "react";
 
 const Stopwatch = ({ start }) => {
+    // Hooks
     const [time, setTime] = useState({ hours: 0, minutes: 0, seconds: 0 });
 
+    // Set initial time when start prop is initialized
     useEffect(() => {
         setTime({
             ...time,
@@ -11,6 +14,8 @@ const Stopwatch = ({ start }) => {
         })
     }, [start]);
 
+    // Updates time at 60 seconds and minutes, else increases time
+    // These happens every second
     useEffect(() => {
         setTimeout(() => {
             if (time.minutes === 59 && time.seconds === 59)
@@ -34,6 +39,7 @@ const Stopwatch = ({ start }) => {
         }, 1000)
     }, [time])
 
+    // Render Section
     return (
         <>
             <p className="stopwatch">

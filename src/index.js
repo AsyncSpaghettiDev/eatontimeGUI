@@ -4,8 +4,6 @@ import { CookiesProvider } from "react-cookie";
 import './index.css';
 import App from './App.jsx';
 
-// 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
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <StrictMode>
