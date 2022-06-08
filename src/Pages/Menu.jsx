@@ -15,12 +15,15 @@ import "./styles/Menu.css";
 import NavBar from '../Components/NavBar.jsx';
 import MenuPlate from '../Components/MenuPlate.jsx';
 import Transition from '../Components/Transition.jsx';
+import LinkPlateModal from '../Components/LinkPlateModal.jsx';
 
 const Menu = () => {
     // Hooks
     const [pizzas, setPizzas] = useState([]);
     const [desserts, setDesserts] = useState([]);
+    const [linkMode, setLinkMode] = useState(false);
     const [selectedPlate, setSelectedPlate] = useState(null);
+    const [showLinkPlates, setShowLinkPlates] = useState(false);
     const { showFormModal, setShowForm, formResponse, resetFormResponse } = useFormModal();
     const [modalConfiguration, setModalConfiguration] = useState(undefined);
     const [cookies] = useCookies(['role']);
@@ -34,7 +37,7 @@ const Menu = () => {
             "style": {
                 "height": "4em",
                 "resize": "none",
-                "width" : "clamp(100px, 60%, 250px)"
+                "width": "clamp(100px, 60%, 250px)"
             }
         },
         {
@@ -78,7 +81,7 @@ const Menu = () => {
             "style": {
                 "height": "4em",
                 "resize": "none",
-                "width" : "clamp(100px, 60%, 250px)"
+                "width": "clamp(100px, 60%, 250px)"
             }
         }
     ]
@@ -110,10 +113,10 @@ const Menu = () => {
             resetFormResponse();
             setTimeout((setShowForm(false), 500))
         }
-    }, [formResponse]);
+    }, [formResponse, resetFormResponse, setShowForm]);
 
     useEffect(() => {
-        if (selectedPlate !== null) {
+        if (selectedPlate !== null && !linkMode) {
 
             const inputConfigUpdate = [
                 {
@@ -123,7 +126,7 @@ const Menu = () => {
                     "style": {
                         "height": "4em",
                         "resize": "none",
-                        "width" : "clamp(100px, 60%, 250px)"
+                        "width": "clamp(100px, 60%, 250px)"
                     },
                     "defaultValue": selectedPlate.description
                 },
@@ -172,7 +175,10 @@ const Menu = () => {
             setShowForm(true);
             setSelectedPlate(null);
         }
-    }, [selectedPlate]);
+        if(selectedPlate !== null && linkMode){
+            setShowLinkPlates(true);
+        }
+    }, [selectedPlate, linkMode, setShowForm]);
 
     // Handlers
 
@@ -185,22 +191,33 @@ const Menu = () => {
         setModalConfiguration(configurationAddMenu);
         setShowForm(true);
     }
-    
+
+    const onAddToMenuHandler = () => {
+        setLinkMode(!linkMode);
+    }
+
     const onUpdateHandler = (plateID) => {
-        setSelectedPlate(FullMenu.find(plt => plt.id === plateID));
+        if (cookies.role === 'ADMIN')
+            setSelectedPlate(FullMenu.find(plt => plt.id === plateID));
+    }
+
+    const toggleLinkModal = () => {
+        setShowLinkPlates(false);
+        setSelectedPlate(null);
     }
 
     // Render Section
     return (
         <main className="menu">
             <NavBar showUser={false} />
-            <h1 className="menu__title">EatOnTime Menu</h1>
+            <h1 className="menu__title">EatOnTime Menu {linkMode && '(Añadiendo a menú)'} </h1>
             <div className="plates">
                 {
                     cookies.role === 'ADMIN' &&
                     <div className="menu__new">
                         <button className="menu__new-add" onClick={onNewPlateHandler}>Crear Platillo</button>
                         <button className="menu__new-add" onClick={onNewMenuHandler}>Crear Menú</button>
+                        <button className="menu__new-add" onClick={onAddToMenuHandler}>Alternar Agregar Platillo al Menú</button>
                     </div>
                 }
                 <p className="plates-title">Pizzas</p>
@@ -230,7 +247,8 @@ const Menu = () => {
             </div>
 
             {modalConfiguration && showFormModal(modalConfiguration)}
-            <Transition duration='0s' />
+            {showLinkPlates && <LinkPlateModal onDismiss={toggleLinkModal} data={selectedPlate} />}
+            <Transition duration='500ms' />
         </main>
     )
 }
