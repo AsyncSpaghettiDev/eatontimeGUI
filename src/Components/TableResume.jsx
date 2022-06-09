@@ -11,10 +11,10 @@ const TableResume = ({ data, busy, onClick, editingMode }) => {
     // if not and table is busy redirects to table detail
     const showHandler = () => {
         if (editingMode)
-            onClick(data.tableNo);
+            onClick(data.TableId);
         else
             if (busy)
-                navigate(`details/${data.tableNo}`);
+                navigate(`details/${data.TableId}`);
     }
 
     // Render Section
@@ -23,10 +23,10 @@ const TableResume = ({ data, busy, onClick, editingMode }) => {
             className={busy ? "dashboard__resume__table dashboard__resume__table--busy" : "dashboard__resume__table"}
             onClick={showHandler}
         >
-            <td className='dashboard__resume__table-info' > {data.tableNo.toString().padStart(2, '0')} </td>
-            <td> {data.freeSeat.toString().padStart(2, '0')} </td>
-            <td> {data.status} </td>
-            <td className='dashboard__resume__table-time'> {busy ? `${data.estTime} min` : '--'} </td>
+            <td className='dashboard__resume__table-info' > {data.TableId.toString().padStart(2, '0')} </td>
+            <td> {data.QtyLimit?.toString().padStart(2, '0')} </td>
+            <td> {data.TableStatus} </td>
+            <td className='dashboard__resume__table-time'> {busy ? `${data.EstTime} min` : '--'} </td>
         </tr>
     );
 }

@@ -18,7 +18,6 @@ import useFormModal from '../CustomHooks/useFormModal';
 const Employees = () => {
     // Hooks
     const [employees, setEmployees] = useState([]);
-    const [chefs, setChefs] = useState([]);
     const [selectedEmployee, setSelectedEmployee] = useState(null);
     const { showFormModal, setShowForm, formResponse, resetFormResponse } = useFormModal();
     const [modalConfiguration, setModalConfiguration] = useState(undefined);
@@ -69,8 +68,10 @@ const Employees = () => {
 
     // useEffects
     useEffect(() => {
-        setEmployees(Users.filter(usr => usr.USER_ROLE === 'EMPLOYEE'));
-        setChefs(Users.filter(usr => usr.USER_ROLE === 'CHEF'));
+        fetch('api/GetEmployees')
+        .then(res => res.json())
+        .then(data => setEmployees(data.data));
+        //setEmployees(Users.filter(usr => usr.USER_ROLE === 'EMPLOYEE'));
     }, []);
 
     useEffect(() => {
@@ -91,13 +92,13 @@ const Employees = () => {
                     "style": {
                         "width": "12ch"
                     },
-                    "defaultValue": selectedEmployee.R_USER_ID
+                    "defaultValue": selectedEmployee.UserId
                 },
                 {
                     "id": "emp-name",
                     "label": "Nombre del empleado",
                     "input__type": "text",
-                    "defaultValue": selectedEmployee.R_USER_NAME
+                    "defaultValue": selectedEmployee.UserName
                 },
                 {
                     "id": "emp-role",
@@ -109,12 +110,7 @@ const Employees = () => {
                         {
                             "id": "employee-role-employee",
                             "label": "Empleado",
-                            "checked": selectedEmployee.USER_ROLE === "EMPLOYEE"
-                        },
-                        {
-                            "id": "employee-role-chef",
-                            "label": "Chef",
-                            "checked": selectedEmployee.USER_ROLE === "CHEF"
+                            "checked": selectedEmployee.UserRole === "EMPLOYEE"
                         }
                     ]
                 }
@@ -141,7 +137,7 @@ const Employees = () => {
     }
     
     const onUpdateHandler = (empID) => {
-        setSelectedEmployee(Users.find(usr => usr.R_USER_ID === empID));
+        setSelectedEmployee(employees.find(usr => usr.UserId === empID));
     }
 
     // Render section
@@ -164,31 +160,11 @@ const Employees = () => {
                         employees.map(
                             emp =>
                                 <EmployeeResume
-                                    key={emp.R_USER_ID}
-                                    empNo={emp.R_USER_ID}
-                                    empName={emp.R_USER_NAME}
-                                    empRole={emp.USER_ROLE}
-                                    empDate={emp.CREATED_ON}
-                                    onClick={onUpdateHandler}
-                                />)
-                    }
-                </tbody>
-                <tbody id='chef__employees'>
-                    <tr className="employees__list__headers">
-                        <th>No. Empleado</th>
-                        <th>Nombre empleado</th>
-                        <th>Rol</th>
-                        <th>Fecha de creación</th>
-                    </tr>
-                    {
-                        chefs.map(
-                            chef =>
-                                <EmployeeResume
-                                    key={chef.R_USER_ID}
-                                    empNo={chef.R_USER_ID}
-                                    empName={chef.R_USER_NAME}
-                                    empRole={chef.USER_ROLE}
-                                    empDate={chef.CREATED_ON}
+                                    key={emp.UserId}
+                                    empNo={emp.UserId}
+                                    empName={emp.UserName}
+                                    empRole={emp.UserRole}
+                                    empDate={emp.CreatedOn}
                                     onClick={onUpdateHandler}
                                 />)
                     }

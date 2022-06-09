@@ -1,7 +1,7 @@
 // Style
 import './styles/PlateStatusModal.css';
 
-const PlateStatusModal = ({ origin, data, time, status, onDismiss }) => {
+const PlateStatusModal = ({ origin, data, onDismiss }) => {
     // Handlers
     const dismissHandler = () => {
         onDismiss();
@@ -13,11 +13,11 @@ const PlateStatusModal = ({ origin, data, time, status, onDismiss }) => {
         <div className="dialog__container" onClick={dismissHandler}>
             <div onClick={propagationHandler} className='dialog' role="dialog" aria-labelledby="dialogTitle" aria-describedby="dialogDesc">
                 <h2 className="dialog-title"> {`Orden de la mesa #${origin}`} </h2>
-                <p className='dialog-desc' id="dialogTitle"> {`Nombre del platillo: ${data.name}`} </p>
-                <p className='dialog-desc' id="dialogDesc"> {`Costo: $${data.price} MXN`} </p>
-                <p className='dialog-desc' id="dialogDesc"> {`Cantidad: ${data.quantity} pzs`} </p>
-                <p className='dialog-desc' id="dialogDesc"> {`Hora de la orden: ${time}`} </p>
-                <p className='dialog-desc' id="dialogDesc"> {`Estado actual: ${status}`} </p>
+                <p className='dialog-desc' id="dialogTitle"> {`Nombre del platillo: ${data.ProductName}`} </p>
+                <p className='dialog-desc' id="dialogDesc"> {`Costo: $${Number(data.UnitPrice).toFixed(2)} MXN`} </p>
+                <p className='dialog-desc' id="dialogDesc"> {`Cantidad: ${data.QtyPO} pzs`} </p>
+                <p className='dialog-desc' id="dialogDesc"> {`Hora de la orden: ${data.CreatedOn}`} </p>
+                <p className='dialog-desc' id="dialogDesc"> {`Estado actual: ${data.Served === 'FALSE' ? 'No servido' : 'Servido'}`} </p>
             </div>
         </div>
     )
