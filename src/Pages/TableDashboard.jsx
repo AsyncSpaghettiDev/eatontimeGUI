@@ -19,7 +19,7 @@ const TableDashboard = () => {
     // Hooks
     const [tables, setTables] = useState([]);
     const [selectedTable, setSelectedTable] = useState(null);
-    const [editMode, setEditMode] = useState(false);
+    const [editMode, setEditMode] = useState(false); 
     const { showFormModal, setShowForm, formResponse, resetFormResponse } = useFormModal();
     const [modalConfiguration, setModalConfiguration] = useState(undefined);
     const [cookies] = useCookies(['role']);
@@ -73,25 +73,18 @@ const TableDashboard = () => {
 
     // UseEffect
     useEffect(() => {
-        /* 
-            async function fetchData() {
-                const res = await fetch('api/GetTables');
-                const data = await res.json();
-                console.log(data);
-            }
-            fetchData(); 
-        */
-        /**
-         * EstTime: "00:00:00"
-         * QtyLimit: 2
-         * TableId: 1
-         * TableStatus: "DISPONIBLE"
-         */
-
-        fetch('api/GetTables').then(res => res.json()).then(data => {
-            console.log(data);
-            //setTables(data.data);
-        });
+        setTables([
+            { tableNo: 1, freeSeat: 0, status: 'ocupada', estTime: 10 },
+            { tableNo: 2, freeSeat: 3, status: 'ocupada', estTime: 30 },
+            { tableNo: 3, freeSeat: 12, status: 'libre', estTime: 0 },
+            { tableNo: 4, freeSeat: 8, status: 'libre', estTime: 0 },
+            { tableNo: 5, freeSeat: 5, status: 'libre', estTime: 0 },
+            { tableNo: 6, freeSeat: 4, status: 'libre', estTime: 0 },
+            { tableNo: 7, freeSeat: 2, status: 'ocupada', estTime: 25 },
+            { tableNo: 8, freeSeat: 3, status: 'libre', estTime: 0 },
+            { tableNo: 9, freeSeat: 6, status: 'libre', estTime: 0 },
+            { tableNo: 10, freeSeat: 0, status: 'ocupada', estTime: 60 }
+        ])
     }, []);
 
     useEffect(() => {
@@ -112,7 +105,7 @@ const TableDashboard = () => {
                     "style": {
                         "width": "12ch"
                     },
-                    "defaultValue": selectedTable.TableId
+                    "defaultValue": selectedTable.tableNo
                 },
                 {
                     "id": "table-capacity",
@@ -121,7 +114,7 @@ const TableDashboard = () => {
                     "style": {
                         "width": "12ch"
                     },
-                    "defaultValue": selectedTable.QtyLimit
+                    "defaultValue": selectedTable.freeSeat
                 },
                 {
                     "id": "table-status",
@@ -133,12 +126,12 @@ const TableDashboard = () => {
                         {
                             "id": "table-status-free",
                             "label": "Disponible",
-                            "checked": selectedTable.TableStatus === "DISPONIBLE"
+                            "checked": selectedTable.status === "libre"
                         },
                         {
                             "id": "table-status-busy",
                             "label": "Ocupada",
-                            "checked": selectedTable.TableStatus === "OCUPADA"
+                            "checked": selectedTable.status === "ocupada"
                         }
                     ]
                 }
@@ -168,15 +161,14 @@ const TableDashboard = () => {
     }
 
     const onUpdateHandler = (tblNo) => {
-        const findTable = tables.find(tbl => tbl.TableId == tblNo);
-        setSelectedTable(findTable);
+        setSelectedTable(tables.find(tbl => tbl.tableNo === tblNo));
     }
 
     // Render Section
     return (
         <section className="table__dashboard">
             <Transition duration='2s' />
-            |
+|
             <div className="dashboard__hero">
                 <img className="dashboard__hero-img" src={HeroImage} alt="dashboard logo" />
                 <h2 className="dashboard__hero-title">Mesas {editMode && "(Edit Mode)"} </h2>
@@ -197,14 +189,7 @@ const TableDashboard = () => {
                         <th>Est.Time</th>
                     </tr>
                     {
-                        tables.map(table =>
-                            <TableResume
-                                editingMode={editMode}
-                                onClick={onUpdateHandler}
-                                key={table.TableId}
-                                data={table}
-                                busy={table.TableStatus !== 'DISPONIBLE'}
-                            />)
+                        tables.map(table => <TableResume editingMode={editMode} onClick={onUpdateHandler} key={table.tableNo} data={table} busy={table.status === 'ocupada'} />)
                     }
                 </tbody>
             </table>

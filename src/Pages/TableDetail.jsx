@@ -2,11 +2,9 @@
 import './styles/TableDetail.css';
 
 // Data
-/* 
 import Pizzas from "../Data/pizzas.json";
 import Desserts from "../Data/desserts.json";
-import FullMenu from "../Data/menu.json"; 
-*/
+import FullMenu from "../Data/menu.json";
 
 // Components
 import Stopwatch from '../Components/Stopwatch.jsx';
@@ -37,27 +35,19 @@ const TableDetail = () => {
 
     // useEffect
     useEffect(() => {
-        if (confirmResponse) {
-            
-        }
+        if (confirmResponse) setDetailedTable({ ...detailedTable, status: 'pendiente' })
         else setDetailedTable({ ...detailedTable, status: 'ocupada' });
     }, [confirmResponse]);
 
     useEffect(() => {
-        fetch(`/api/GetTableOrder?tableId=${tableID}`)
-        .then(res => res.json())
-        .then(data => {
-            console.log(data.data);
-            setPlates(data.data);
-        });
-        /* setPlates([
+        setPlates([
             { ...Pizzas[1], quantity: 2 },
             { ...Desserts[2], quantity: 5 },
             { ...Pizzas[15], quantity: 2 },
             { ...Pizzas[9], quantity: 1 },
             { ...Desserts[0], quantity: 1 },
             { ...Pizzas[5], quantity: 2 }
-        ]) */
+        ])
         // Fake Info
         const inTime = new Date();
         inTime.setMinutes(inTime.getMinutes() - 35);
@@ -76,8 +66,7 @@ const TableDetail = () => {
     const showConfirmHandler = () => setShowConfirm(true);
 
     const showStatusHandler = (currentPlate) => {
-        console.log(currentPlate);
-        setSelectedPlate(plates.find(plate => plate.ProductCode === currentPlate.id));
+        setSelectedPlate(currentPlate);
         setShowStatus(true);
     }
 
@@ -124,14 +113,14 @@ const TableDetail = () => {
             </div>
             <div className="table__plates">
                 {
-                    plates.map((plate, i) =>
+                    plates.map(plate =>
                         <PlateDetail
-                            id={plate.ProductCode}
-                            key={`plt#${i}${plate.ProductCode}`}
+                            id={plate.id}
+                            key={plate.id}
                             img={plate.img}
-                            name={plate.ProductName}
-                            price={Number(plate.UnitPrice)?.toFixed(2)}
-                            quantity={plate.QtyPO}
+                            name={plate.name}
+                            price={plate.price}
+                            quantity={plate.quantity}
                             onClick={showStatusHandler}
                         />)
                 }
@@ -140,7 +129,7 @@ const TableDetail = () => {
                 {detailedTable.status === 'ocupada' ?
                     <input onClick={showConfirmHandler} className='table__form-submit' type="button" value="Pedir Cuenta" />
                     : detailedTable.status === 'pendiente' ?
-                        <output className='table__form-total'>{`Subtotal: $${plates.reduce((partialSum, a) => partialSum + Number(a.UnitPrice), 0).toFixed(2)} MXN`}</output>
+                        <output className='table__form-total'>{`Subtotal: $${plates.reduce((partialSum, a) => partialSum + (a.price * a.quantity), 0)} MXN`}</output>
                         : null}
             </div>
             {showStatus ?
@@ -148,7 +137,9 @@ const TableDetail = () => {
                     onDismiss={() => { setShowStatus(false) }}
                     // Cambiar por una consulta a la api para obtener toda la información junta
                     origin={tableID}
-                    data={selectedPlate}
+                    data={FullMenu.find(plate => plate.id === selectedPlate.id)}
+                    time={"10:15am"}
+                    status={"Servida"}
                 /> : null}
             {showModal(`Pedir Cuenta Mesa #${tableID}`, '¿Desea solicitar la cuenta de la mesa?')}
         </main>
